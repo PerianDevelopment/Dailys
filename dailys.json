@@ -29,6 +29,12 @@
           "name": "Octordle",
           "url": "https://www.britannica.com/games/octordle/extreme",
           "favicon": "https://www.britannica.com/favicon.ico"
+        },
+        {
+          "id": "travle",
+          "name": "Travle",
+          "url": "https://travle.earth/",
+          "favicon": "https://travle.earth/favicon.ico"
         }
       ]
     },
@@ -155,6 +161,26 @@
           "name": "Moreless",
           "url": "https://lessgames.com/moreless",
           "favicon": "https://lessgames.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "anime",
+      "name": "Anime Themed",
+      "icon": "fas fa-tv",
+      "description": "Anime-based dailys",
+      "games": [
+        {
+          "id": "aniguessr",
+          "name": "Aniguessr",
+          "url": "https://aniguessr.com/",
+          "favicon": "https://aniguessr.com//favicon.ico"
+        },
+        {
+          "id": "onepiecedle",
+          "name": "Onepiecedle",
+          "url": "https://onepiecedle.net/",
+          "favicon": "https://onepiecedle.net/favicon.ico"
         }
       ]
     }
