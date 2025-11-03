@@ -197,6 +197,7 @@ header {
     margin-left: 10px;
     cursor: default;
     background: transparent;
+    pointer-events: none; /* Prevent any interaction */
 }
 
 .section-checkmark.checked {
@@ -241,6 +242,7 @@ header {
     position: relative;
     overflow: hidden;
     border: 1px solid transparent;
+    cursor: pointer;
     height: 80px;
     width: 100%;
 }
@@ -265,6 +267,7 @@ header {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .game-content {
