@@ -33,6 +33,26 @@
       ]
     },
     {
+      "id": "game",
+      "name": "Game Themed",
+      "icon": "fas fa-gamepad",
+      "description": "Video game themed puzzles",
+      "games": [
+        {
+          "id": "mcdle",
+          "name": "Mcdle",
+          "url": "https://www.mcdle.net/",
+          "favicon": "https://www.mcdle.net/favicon.ico"
+        },
+        {
+          "id": "minecraftle",
+          "name": "Minecraftle",
+          "url": "https://minecraftle.zachmanson.com/",
+          "favicon": "https://minecraftle.zachmanson.com/favicon.ico"
+        }
+      ]
+    },
+    {
       "id": "geography",
       "name": "Geography Themed",
       "icon": "fas fa-globe-americas",
@@ -95,26 +115,6 @@
           "name": "Foodguessr PlateOff",
           "url": "https://www.foodguessr.com/game/plate-off/daily",
           "favicon": "https://www.foodguessr.com/favicon.ico"
-        }
-      ]
-    },
-    {
-      "id": "game",
-      "name": "Game Themed",
-      "icon": "fas fa-gamepad",
-      "description": "Video game themed puzzles",
-      "games": [
-        {
-          "id": "mcdle",
-          "name": "Mcdle",
-          "url": "https://www.mcdle.net/",
-          "favicon": "https://www.mcdle.net/favicon.ico"
-        },
-        {
-          "id": "minecraftle",
-          "name": "Minecraftle",
-          "url": "https://minecraftle.zachmanson.com/",
-          "favicon": "https://minecraftle.zachmanson.com/favicon.ico"
         }
       ]
     },
