@@ -79,7 +79,59 @@ function toggleGameCheck(gameId) {
         checkedGames[gameId] = true;
     }
     saveCheckedGames();
-    renderGames();
+    
+    // Update only the affected section, not all sections
+    updateSectionCompletion(gameId);
+}
+
+// Update section completion status without re-rendering everything
+function updateSectionCompletion(gameId) {
+    // Find which topic this game belongs to
+    let targetTopic = null;
+    let targetTopicId = null;
+    
+    const topicsToCheck = filteredTopics.length > 0 ? filteredTopics : gamesData.topics;
+    
+    for (const topic of topicsToCheck) {
+        for (const game of topic.games) {
+            if (game.id === gameId) {
+                targetTopic = topic;
+                targetTopicId = topic.id;
+                break;
+            }
+        }
+        if (targetTopic) break;
+    }
+    
+    if (!targetTopic) return;
+    
+    // Update the section checkmark
+    const isTopicComplete = isTopicCompleted(targetTopic);
+    const sectionTitle = document.querySelector(`[data-topic-id="${targetTopicId}"] .section-title h2`);
+    if (sectionTitle) {
+        const checkmark = sectionTitle.querySelector('.section-checkmark');
+        if (checkmark) {
+            if (isTopicComplete) {
+                checkmark.classList.add('checked');
+            } else {
+                checkmark.classList.remove('checked');
+            }
+        }
+    }
+    
+    // Update the game card
+    const gameCard = document.querySelector(`[data-game-id="${gameId}"]`);
+    if (gameCard) {
+        if (checkedGames[gameId]) {
+            gameCard.classList.add('checked');
+            gameCard.querySelector('.game-title').style.textDecoration = 'line-through';
+            gameCard.querySelector('.game-title').style.color = 'var(--text-secondary)';
+        } else {
+            gameCard.classList.remove('checked');
+            gameCard.querySelector('.game-title').style.textDecoration = 'none';
+            gameCard.querySelector('.game-title').style.color = '';
+        }
+    }
 }
 
 // Check if all games in a topic are completed
@@ -113,7 +165,7 @@ function renderGames() {
         topicElement.setAttribute('data-topic-id', topic.id);
         
         const isTopicComplete = isTopicCompleted(topic);
-        const isCollapsed = collapsedSections[topic.id] || true; // Default to collapsed
+        const isCollapsed = collapsedSections[topic.id];
         
         const gamesGrid = topic.games.map(game => {
             const isChecked = checkedGames[game.id] || false;
@@ -128,7 +180,7 @@ function renderGames() {
                                     `<i class="fas fa-gamepad"></i>`
                                 }
                             </div>
-                            <div class="game-title">${game.name}</div>
+                            <div class="game-title" style="${isChecked ? 'text-decoration: line-through; color: var(--text-secondary)' : ''}">${game.name}</div>
                         </div>
                         <a href="${game.url}" target="_blank" class="game-link">
                             Play Now <i class="fas fa-external-link-alt"></i>
