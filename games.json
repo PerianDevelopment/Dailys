@@ -1,1 +1,150 @@
-
+{
+  "topics": [
+    {
+      "id": "word",
+      "name": "Word Themed",
+      "icon": "fas fa-font",
+      "description": "Word-based puzzles and vocabulary challenges",
+      "games": [
+        {
+          "id": "wordle",
+          "name": "Wordle",
+          "url": "https://www.nytimes.com/games/wordle/index.html",
+          "favicon": "https://www.nytimes.com/games/wordle/favicon.ico"
+        },
+        {
+          "id": "wordle-de",
+          "name": "Wördle",
+          "url": "https://www.xn--wrdle-jua.de/",
+          "favicon": "https://www.xn--wrdle-jua.de/favicon.ico"
+        },
+        {
+          "id": "lewdle",
+          "name": "Lewdle",
+          "url": "https://www.lewdlegame.com/App",
+          "favicon": "https://www.lewdlegame.com/favicon.ico"
+        },
+        {
+          "id": "octordle",
+          "name": "Octordle",
+          "url": "https://www.britannica.com/games/octordle/extreme",
+          "favicon": "https://www.britannica.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "geography",
+      "name": "Geography Themed",
+      "icon": "fas fa-globe-americas",
+      "description": "Geography and location-based puzzles",
+      "games": [
+        {
+          "id": "geodle",
+          "name": "Geodle",
+          "url": "https://geodle.me/",
+          "favicon": "https://geodle.me/favicon.ico"
+        },
+        {
+          "id": "worldle",
+          "name": "Worldle",
+          "url": "https://worldle.teuteuf.fr/",
+          "favicon": "https://worldle.teuteuf.fr/favicon.ico"
+        },
+        {
+          "id": "globle",
+          "name": "Globle",
+          "url": "https://globle-game.com/game",
+          "favicon": "https://globle-game.com/favicon.ico"
+        },
+        {
+          "id": "timeguessr",
+          "name": "Timeguessr",
+          "url": "https://timeguessr.com/",
+          "favicon": "https://timeguessr.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "flag",
+      "name": "Flag Themed",
+      "icon": "fas fa-flag",
+      "description": "Flag identification and trivia games",
+      "games": [
+        {
+          "id": "flaggle",
+          "name": "Flagle",
+          "url": "https://flagle-game.com/daily",
+          "favicon": "https://flagle-game.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "food",
+      "name": "Food Themed",
+      "icon": "fas fa-utensils",
+      "description": "Food and culinary guessing games",
+      "games": [
+        {
+          "id": "foodguessr",
+          "name": "Foodguessr",
+          "url": "https://www.foodguessr.com/game/daily",
+          "favicon": "https://www.foodguessr.com/favicon.ico"
+        },
+        {
+          "id": "foodguessr-plateoff",
+          "name": "Foodguessr PlateOff",
+          "url": "https://www.foodguessr.com/game/plate-off/daily",
+          "favicon": "https://www.foodguessr.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "game",
+      "name": "Game Themed",
+      "icon": "fas fa-gamepad",
+      "description": "Video game themed puzzles",
+      "games": [
+        {
+          "id": "mcdle",
+          "name": "Mcdle",
+          "url": "https://www.mcdle.net/",
+          "favicon": "https://www.mcdle.net/favicon.ico"
+        },
+        {
+          "id": "minecraftle",
+          "name": "Minecraftle",
+          "url": "https://minecraftle.zachmanson.com/",
+          "favicon": "https://minecraftle.zachmanson.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "name": "Music Themed",
+      "icon": "fas fa-music",
+      "description": "Music and audio-based puzzles",
+      "games": [
+        {
+          "id": "songless",
+          "name": "Songless",
+          "url": "https://lessgames.com/songless",
+          "favicon": "https://lessgames.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "estimation",
+      "name": "Estimation Themed",
+      "icon": "fas fa-chart-line",
+      "description": "Estimation and number-based puzzles",
+      "games": [
+        {
+          "id": "moreless",
+          "name": "Moreless",
+          "url": "https://lessgames.com/moreless",
+          "favicon": "https://lessgames.com/favicon.ico"
+        }
+      ]
+    }
+  ]
+}
