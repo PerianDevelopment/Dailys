@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daily Game Hub</title>
-    <link rel="icon" href="icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -13,6 +13,7 @@
             --bg-dark: #121212;
             --bg-card: #1E1E1E;
             --bg-card-hover: #252525;
+            --bg-card-checked: rgba(76, 175, 80, 0.1);
             --text-primary: #FFFFFF;
             --text-secondary: #B0B0B0;
             --border-color: #333333;
@@ -92,9 +93,7 @@
         }
 
         .search-container {
-            flex: 1;
-            max-width: 500px;
-            margin: 0 20px;
+            max-width: 300px;
             position: relative;
         }
 
@@ -121,13 +120,6 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-secondary);
-        }
-
-        .date-display {
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-align: right;
-            margin-top: 5px;
         }
 
         /* Main Content */
@@ -169,6 +161,13 @@
             color: var(--primary);
         }
 
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 5px;
+            margin-left: 40px;
+        }
+
         .collapse-icon {
             transition: var(--transition);
         }
@@ -196,6 +195,7 @@
             position: relative;
             overflow: hidden;
             border: 1px solid transparent;
+            cursor: pointer;
         }
 
         .game-card:hover {
@@ -206,7 +206,8 @@
         }
 
         .game-card.checked {
-            border-left: 4px solid var(--success);
+            background: var(--bg-card-checked);
+            border-color: rgba(76, 175, 80, 0.3);
         }
 
         .game-card.checked::before {
@@ -216,7 +217,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, transparent 50%);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -231,13 +232,20 @@
             height: 40px;
             border-radius: 8px;
             margin-right: 12px;
-            object-fit: cover;
             background: var(--bg-dark);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 18px;
             color: var(--primary);
+            overflow: hidden;
+        }
+
+        .game-favicon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
         }
 
         .game-title {
@@ -275,13 +283,6 @@
             font-size: 12px;
         }
 
-        .game-description {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 15px;
-            flex: 1;
-        }
-
         .game-link {
             display: inline-flex;
             align-items: center;
@@ -294,6 +295,7 @@
             background: rgba(255, 56, 46, 0.1);
             transition: var(--transition);
             align-self: flex-start;
+            margin-top: auto;
         }
 
         .game-link:hover {
@@ -381,7 +383,6 @@
                     <input type="text" class="search-bar" placeholder="Search games...">
                     <i class="fas fa-search search-icon"></i>
                 </div>
-                <div class="date-display" id="currentDate">Loading date...</div>
             </div>
         </div>
     </header>
@@ -398,134 +399,187 @@
         </main>
 
         <footer>
-            <p>Daily Game Hub &copy; 2023 - Your daily puzzle companion</p>
+            <p>© 2025 PerianDevelopment. All Rights Reserved.</p>
         </footer>
     </div>
 
     <script>
-        // Sample game data - in a real implementation, this would be loaded from games.json
+        // Updated game data with the provided list
         const gamesData = {
             "topics": [
                 {
                     "id": "word",
-                    "name": "Word Games",
+                    "name": "Word Themed",
                     "icon": "fas fa-font",
+                    "description": "Word-based puzzles and vocabulary challenges",
                     "games": [
                         {
                             "id": "wordle",
                             "name": "Wordle",
-                            "description": "Guess the hidden word in 6 tries. Each guess must be a valid 5-letter word.",
                             "url": "https://www.nytimes.com/games/wordle/index.html",
                             "favicon": "https://www.nytimes.com/games/wordle/favicon.ico"
                         },
                         {
-                            "id": "spelling-bee",
-                            "name": "Spelling Bee",
-                            "description": "Create words using letters from the hive. Each word must contain the center letter.",
-                            "url": "https://www.nytimes.com/puzzles/spelling-bee",
-                            "favicon": "https://www.nytimes.com/favicon.ico"
+                            "id": "wordle-de",
+                            "name": "Wördle",
+                            "url": "https://www.xn--wrdle-jua.de/",
+                            "favicon": "https://www.xn--wrdle-jua.de/favicon.ico"
                         },
                         {
-                            "id": "crossword",
-                            "name": "Mini Crossword",
-                            "description": "A quick and fun crossword puzzle that updates daily.",
-                            "url": "https://www.nytimes.com/crosswords/game/mini",
-                            "favicon": "https://www.nytimes.com/favicon.ico"
+                            "id": "lewdle",
+                            "name": "Lewdle",
+                            "url": "https://www.lewdlegame.com/App",
+                            "favicon": "https://www.lewdlegame.com/favicon.ico"
+                        },
+                        {
+                            "id": "octordle",
+                            "name": "Octordle",
+                            "url": "https://www.britannica.com/games/octordle/extreme",
+                            "favicon": "https://www.britannica.com/favicon.ico"
                         }
                     ]
                 },
                 {
-                    "id": "logic",
-                    "name": "Logic Puzzles",
-                    "icon": "fas fa-chess-board",
+                    "id": "geography",
+                    "name": "Geography Themed",
+                    "icon": "fas fa-globe-americas",
+                    "description": "Geography and location-based puzzles",
                     "games": [
                         {
-                            "id": "sudoku",
-                            "name": "Sudoku",
-                            "description": "Fill the 9x9 grid so that each row, column, and 3x3 box contains digits 1-9.",
-                            "url": "https://www.nytimes.com/puzzles/sudoku",
-                            "favicon": "https://www.nytimes.com/favicon.ico"
+                            "id": "geodle",
+                            "name": "Geodle",
+                            "url": "https://geodle.me/",
+                            "favicon": "https://geodle.me/favicon.ico"
                         },
                         {
-                            "id": "nonogram",
-                            "name": "Nonogram",
-                            "description": "Paint the grid according to number clues to reveal a hidden picture.",
-                            "url": "https://www.puzzle-nonograms.com",
-                            "favicon": "https://www.puzzle-nonograms.com/favicon.ico"
+                            "id": "worldle",
+                            "name": "Worldle",
+                            "url": "https://worldle.teuteuf.fr/",
+                            "favicon": "https://worldle.teuteuf.fr/favicon.ico"
+                        },
+                        {
+                            "id": "globle",
+                            "name": "Globle",
+                            "url": "https://globle-game.com/game",
+                            "favicon": "https://globle-game.com/favicon.ico"
+                        },
+                        {
+                            "id": "timeguessr",
+                            "name": "Timeguessr",
+                            "url": "https://timeguessr.com/",
+                            "favicon": "https://timeguessr.com/favicon.ico"
                         }
                     ]
                 },
                 {
-                    "id": "numbers",
-                    "name": "Number Games",
-                    "icon": "fas fa-calculator",
+                    "id": "flag",
+                    "name": "Flag Themed",
+                    "icon": "fas fa-flag",
+                    "description": "Flag identification and trivia games",
                     "games": [
                         {
-                            "id": "kenken",
-                            "name": "KenKen",
-                            "description": "Fill the grid with numbers while following the arithmetic rules for each cage.",
-                            "url": "https://www.kenkenpuzzle.com",
-                            "favicon": "https://www.kenkenpuzzle.com/favicon.ico"
-                        },
-                        {
-                            "id": "2048",
-                            "name": "2048",
-                            "description": "Combine tiles with the same numbers to reach the 2048 tile.",
-                            "url": "https://play2048.co",
-                            "favicon": "https://play2048.co/favicon.ico"
-                        },
-                        {
-                            "id": "numble",
-                            "name": "Numble",
-                            "description": "A math-based puzzle where you combine numbers to reach a target.",
-                            "url": "https://numble.game",
-                            "favicon": "https://numble.game/favicon.ico"
+                            "id": "flaggle",
+                            "name": "Flagle",
+                            "url": "https://flagle-game.com/daily",
+                            "favicon": "https://flagle-game.com/favicon.ico"
                         }
                     ]
                 },
                 {
-                    "id": "visual",
-                    "name": "Visual Puzzles",
-                    "icon": "fas fa-eye",
+                    "id": "food",
+                    "name": "Food Themed",
+                    "icon": "fas fa-utensils",
+                    "description": "Food and culinary guessing games",
                     "games": [
                         {
-                            "id": "spot-difference",
-                            "name": "Spot the Difference",
-                            "description": "Find all differences between two nearly identical images.",
-                            "url": "https://www.spotthedifference.com",
-                            "favicon": "https://www.spotthedifference.com/favicon.ico"
+                            "id": "foodguessr",
+                            "name": "Foodguessr",
+                            "url": "https://www.foodguessr.com/game/daily",
+                            "favicon": "https://www.foodguessr.com/favicon.ico"
                         },
                         {
-                            "id": "jigsaw",
-                            "name": "Daily Jigsaw",
-                            "description": "Solve a new jigsaw puzzle every day with various difficulty levels.",
-                            "url": "https://www.dailyjigsawpuzzles.com",
-                            "favicon": "https://www.dailyjigsawpuzzles.com/favicon.ico"
+                            "id": "foodguessr-plateoff",
+                            "name": "Foodguessr PlateOff",
+                            "url": "https://www.foodguessr.com/game/plate-off/daily",
+                            "favicon": "https://www.foodguessr.com/favicon.ico"
+                        }
+                    ]
+                },
+                {
+                    "id": "game",
+                    "name": "Game Themed",
+                    "icon": "fas fa-gamepad",
+                    "description": "Video game themed puzzles",
+                    "games": [
+                        {
+                            "id": "mcdle",
+                            "name": "Mcdle",
+                            "url": "https://www.mcdle.net/",
+                            "favicon": "https://www.mcdle.net/favicon.ico"
+                        },
+                        {
+                            "id": "minecraftle",
+                            "name": "Minecraftle",
+                            "url": "https://minecraftle.zachmanson.com/",
+                            "favicon": "https://minecraftle.zachmanson.com/favicon.ico"
+                        }
+                    ]
+                },
+                {
+                    "id": "music",
+                    "name": "Music Themed",
+                    "icon": "fas fa-music",
+                    "description": "Music and audio-based puzzles",
+                    "games": [
+                        {
+                            "id": "songless",
+                            "name": "Songless",
+                            "url": "https://lessgames.com/songless",
+                            "favicon": "https://lessgames.com/favicon.ico"
+                        }
+                    ]
+                },
+                {
+                    "id": "estimation",
+                    "name": "Estimation Themed",
+                    "icon": "fas fa-chart-line",
+                    "description": "Estimation and number-based puzzles",
+                    "games": [
+                        {
+                            "id": "moreless",
+                            "name": "Moreless",
+                            "url": "https://lessgames.com/moreless",
+                            "favicon": "https://lessgames.com/favicon.ico"
                         }
                     ]
                 }
             ]
         };
 
-        // Themes data - in a real implementation, this would be loaded from themes.json
+        // Themes data
         const themesData = {
             "fallbackIcon": "fas fa-gamepad",
             "topics": {
                 "word": {
-                    "description": "Word-based puzzles and vocabulary challenges",
                     "color": "#4CAF50"
                 },
-                "logic": {
-                    "description": "Logic and deduction puzzles",
+                "geography": {
                     "color": "#2196F3"
                 },
-                "numbers": {
-                    "description": "Number-based puzzles and math challenges",
+                "flag": {
                     "color": "#FF9800"
                 },
-                "visual": {
-                    "description": "Visual and pattern recognition puzzles",
+                "food": {
+                    "color": "#E91E63"
+                },
+                "game": {
                     "color": "#9C27B0"
+                },
+                "music": {
+                    "color": "#FF5722"
+                },
+                "estimation": {
+                    "color": "#00BCD4"
                 }
             }
         };
@@ -533,7 +587,6 @@
         // DOM Elements
         const gamesContainer = document.getElementById('gamesContainer');
         const searchBar = document.querySelector('.search-bar');
-        const currentDateElement = document.getElementById('currentDate');
 
         // State
         let checkedGames = {};
@@ -541,17 +594,9 @@
 
         // Initialize the application
         function init() {
-            updateDateDisplay();
             loadCheckedGames();
             renderGames();
             setupEventListeners();
-        }
-
-        // Update the current date display
-        function updateDateDisplay() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            currentDateElement.textContent = now.toLocaleDateString('en-US', options);
         }
 
         // Load checked games from localStorage
@@ -626,8 +671,7 @@
                             <div class="game-header">
                                 <div class="game-favicon">
                                     ${game.favicon ? 
-                                        `<img src="${game.favicon}" alt="${game.name} icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"> 
-                                         <i class="fas fa-gamepad" style="display: none"></i>` : 
+                                        `<img src="${game.favicon}" alt="${game.name} icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\\'fas fa-gamepad\\'></i>';">` : 
                                         `<i class="fas fa-gamepad"></i>`
                                     }
                                 </div>
@@ -636,7 +680,6 @@
                                     <i class="fas fa-check"></i>
                                 </div>
                             </div>
-                            <div class="game-description">${game.description}</div>
                             <a href="${game.url}" target="_blank" class="game-link">
                                 Play Now <i class="fas fa-external-link-alt"></i>
                             </a>
@@ -646,12 +689,15 @@
                 
                 topicElement.innerHTML = `
                     <div class="section-title">
-                        <h2>
-                            <div class="section-icon">
-                                <i class="${topic.icon}"></i>
-                            </div>
-                            ${topic.name}
-                        </h2>
+                        <div>
+                            <h2>
+                                <div class="section-icon">
+                                    <i class="${topic.icon}"></i>
+                                </div>
+                                ${topic.name}
+                            </h2>
+                            <div class="section-description">${topic.description}</div>
+                        </div>
                         <i class="fas fa-chevron-down collapse-icon"></i>
                     </div>
                     <div class="games-grid">
@@ -670,9 +716,13 @@
         // Setup event listeners for game cards
         function setupGameCardListeners() {
             document.querySelectorAll('.game-card').forEach(card => {
-                const checkmark = card.querySelector('.checkmark');
-                checkmark.addEventListener('click', (e) => {
-                    e.stopPropagation();
+                // Make entire card clickable (except the Play Now link)
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if the click was on the Play Now link
+                    if (e.target.closest('.game-link')) {
+                        return;
+                    }
+                    
                     const gameId = card.getAttribute('data-game-id');
                     toggleGameCheck(gameId);
                 });
@@ -710,8 +760,8 @@
             filteredTopics = gamesData.topics.map(topic => {
                 const filteredGames = topic.games.filter(game => 
                     game.name.toLowerCase().includes(lowerQuery) || 
-                    game.description.toLowerCase().includes(lowerQuery) ||
-                    topic.name.toLowerCase().includes(lowerQuery)
+                    topic.name.toLowerCase().includes(lowerQuery) ||
+                    topic.description.toLowerCase().includes(lowerQuery)
                 );
                 
                 return filteredGames.length > 0 ? { ...topic, games: filteredGames } : null;
