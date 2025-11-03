@@ -67,6 +67,12 @@
           "name": "Royaledle",
           "url": "https://royaledle.com/",
           "favicon": "https://royaledle.com/favicon.ico"
+        },
+        {
+          "id": "pokedle",
+          "name": "Pokédle",
+          "url": "https://pokedle.net/",
+          "favicon": "https://pokedle.net/favicon.ico"
         }
       ]
     },
