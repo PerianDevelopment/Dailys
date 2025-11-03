@@ -10,13 +10,13 @@
           "id": "wordle",
           "name": "Wordle",
           "url": "https://www.nytimes.com/games/wordle/index.html",
-          "favicon": "https://www.nytimes.com/games/wordle/favicon.ico"
+          "favicon": "https://www.nytimes.com/games-assets/v2/metadata/wordle-safari-pinned-tab.svg"
         },
         {
           "id": "wordle-de",
           "name": "Wördle",
           "url": "https://www.xn--wrdle-jua.de/",
-          "favicon": "https://www.xn--wrdle-jua.de/favicon.ico"
+          "favicon": "https://www.xn--wrdle-jua.de/assets/icon/favicon.ico"
         },
         {
           "id": "lewdle",
@@ -28,13 +28,13 @@
           "id": "octordle",
           "name": "Octordle",
           "url": "https://www.britannica.com/games/octordle/extreme",
-          "favicon": "https://www.britannica.com/favicon.ico"
+          "favicon": "https://www.britannica.com/games/octordle/favicon.ico"
         },
         {
           "id": "travle",
           "name": "Travle",
           "url": "https://travle.earth/",
-          "favicon": "https://travle.earth/favicon.ico"
+          "favicon": "https://travle.earth/icons/favicon.ico"
         }
       ]
     },
@@ -48,13 +48,13 @@
           "id": "mcdle",
           "name": "Mcdle",
           "url": "https://www.mcdle.net/",
-          "favicon": "https://www.mcdle.net/favicon.ico"
+          "favicon": "https://www.mcdle.net/Mcdle.webp"
         },
         {
           "id": "minecraftle",
           "name": "Minecraftle",
           "url": "https://minecraftle.zachmanson.com/",
-          "favicon": "https://minecraftle.zachmanson.com/favicon.ico"
+          "favicon": "https://minecraftle.zachmanson.com/icons/favicon-32x32.png"
         },
         {
           "id": "loldle",
@@ -180,7 +180,7 @@
           "id": "aniguessr",
           "name": "Aniguessr",
           "url": "https://aniguessr.com/",
-          "favicon": "https://aniguessr.com//favicon.ico"
+          "favicon": "https://aniguessr.com/images/favicon/favicon.png"
         },
         {
           "id": "onepiecedle",
