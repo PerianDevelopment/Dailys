@@ -104,8 +104,10 @@ function renderGames() {
     topicsToRender.forEach(topic => {
         const topicElement = document.createElement('div');
         topicElement.className = 'topic-section';
+        topicElement.setAttribute('data-topic-id', topic.id);
         
         const isTopicComplete = isTopicCompleted(topic);
+        const isCollapsed = collapsedSections[topic.id];
         
         const gamesGrid = topic.games.map(game => {
             const isChecked = checkedGames[game.id] || false;
@@ -131,7 +133,7 @@ function renderGames() {
         }).join('');
         
         topicElement.innerHTML = `
-            <div class="section-title ${collapsedSections[topic.id] ? 'collapsed' : ''}">
+            <div class="section-title ${isCollapsed ? 'collapsed' : ''}">
                 <div>
                     <h2>
                         <div class="section-icon">
@@ -146,7 +148,7 @@ function renderGames() {
                 </div>
                 <i class="fas fa-chevron-down collapse-icon"></i>
             </div>
-            <div class="games-grid" style="display: ${collapsedSections[topic.id] ? 'none' : 'grid'}">
+            <div class="games-grid" style="display: ${isCollapsed ? 'none' : 'grid'}">
                 ${gamesGrid}
             </div>
         `;
@@ -179,18 +181,19 @@ function setupGameCardListeners() {
 function setupSectionToggleListeners() {
     document.querySelectorAll('.section-title').forEach(title => {
         title.addEventListener('click', () => {
-            const topicId = title.closest('.topic-section').querySelector('.games-grid').firstElementChild?.getAttribute('data-game-id')?.split('-')[0];
+            const topicSection = title.closest('.topic-section');
+            const topicId = topicSection.getAttribute('data-topic-id');
             const gamesGrid = title.nextElementSibling;
             const isCollapsed = gamesGrid.style.display === 'none';
             
             if (isCollapsed) {
                 gamesGrid.style.display = 'grid';
                 title.classList.remove('collapsed');
-                if (topicId) delete collapsedSections[topicId];
+                delete collapsedSections[topicId];
             } else {
                 gamesGrid.style.display = 'none';
                 title.classList.add('collapsed');
-                if (topicId) collapsedSections[topicId] = true;
+                collapsedSections[topicId] = true;
             }
         });
     });
