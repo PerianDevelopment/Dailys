@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Game Hub</title>
+    <title>Dailys</title>
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -75,9 +75,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
             box-shadow: 0 4px 8px rgba(255, 56, 46, 0.3);
             transition: var(--transition);
+        }
+
+        .logo-icon img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
         }
 
         .logo:hover .logo-icon {
@@ -93,8 +98,10 @@
         }
 
         .search-container {
-            max-width: 300px;
+            max-width: 500px;
+            flex: 1;
             position: relative;
+            margin: 0 20px;
         }
 
         .search-bar {
@@ -166,6 +173,30 @@
             font-size: 14px;
             margin-top: 5px;
             margin-left: 40px;
+        }
+
+        .section-checkmark {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        .section-checkmark.checked {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .section-checkmark.checked i {
+            display: block;
+            color: white;
+            font-size: 12px;
         }
 
         .collapse-icon {
@@ -373,9 +404,9 @@
             <div class="header-content">
                 <div class="logo">
                     <div class="logo-icon">
-                        <i class="fas fa-puzzle-piece"></i>
+                        <img src="icon.svg" alt="Dailys Icon">
                     </div>
-                    <h1>Daily Game Hub</h1>
+                    <h1>Dailys</h1>
                 </div>
                 <div class="search-container">
                     <input type="text" class="search-bar" placeholder="Search games...">
@@ -402,186 +433,6 @@
     </div>
 
     <script>
-        // Updated game data with the provided list
-        const gamesData = {
-            "topics": [
-                {
-                    "id": "word",
-                    "name": "Word Themed",
-                    "icon": "fas fa-font",
-                    "description": "Word-based puzzles and vocabulary challenges",
-                    "games": [
-                        {
-                            "id": "wordle",
-                            "name": "Wordle",
-                            "url": "https://www.nytimes.com/games/wordle/index.html",
-                            "favicon": "https://www.nytimes.com/games/wordle/favicon.ico"
-                        },
-                        {
-                            "id": "wordle-de",
-                            "name": "Wördle",
-                            "url": "https://www.xn--wrdle-jua.de/",
-                            "favicon": "https://www.xn--wrdle-jua.de/favicon.ico"
-                        },
-                        {
-                            "id": "lewdle",
-                            "name": "Lewdle",
-                            "url": "https://www.lewdlegame.com/App",
-                            "favicon": "https://www.lewdlegame.com/favicon.ico"
-                        },
-                        {
-                            "id": "octordle",
-                            "name": "Octordle",
-                            "url": "https://www.britannica.com/games/octordle/extreme",
-                            "favicon": "https://www.britannica.com/favicon.ico"
-                        }
-                    ]
-                },
-                {
-                    "id": "geography",
-                    "name": "Geography Themed",
-                    "icon": "fas fa-globe-americas",
-                    "description": "Geography and location-based puzzles",
-                    "games": [
-                        {
-                            "id": "geodle",
-                            "name": "Geodle",
-                            "url": "https://geodle.me/",
-                            "favicon": "https://geodle.me/favicon.ico"
-                        },
-                        {
-                            "id": "worldle",
-                            "name": "Worldle",
-                            "url": "https://worldle.teuteuf.fr/",
-                            "favicon": "https://worldle.teuteuf.fr/favicon.ico"
-                        },
-                        {
-                            "id": "globle",
-                            "name": "Globle",
-                            "url": "https://globle-game.com/game",
-                            "favicon": "https://globle-game.com/favicon.ico"
-                        },
-                        {
-                            "id": "timeguessr",
-                            "name": "Timeguessr",
-                            "url": "https://timeguessr.com/",
-                            "favicon": "https://timeguessr.com/favicon.ico"
-                        }
-                    ]
-                },
-                {
-                    "id": "flag",
-                    "name": "Flag Themed",
-                    "icon": "fas fa-flag",
-                    "description": "Flag identification and trivia games",
-                    "games": [
-                        {
-                            "id": "flaggle",
-                            "name": "Flagle",
-                            "url": "https://flagle-game.com/daily",
-                            "favicon": "https://flagle-game.com/favicon.ico"
-                        }
-                    ]
-                },
-                {
-                    "id": "food",
-                    "name": "Food Themed",
-                    "icon": "fas fa-utensils",
-                    "description": "Food and culinary guessing games",
-                    "games": [
-                        {
-                            "id": "foodguessr",
-                            "name": "Foodguessr",
-                            "url": "https://www.foodguessr.com/game/daily",
-                            "favicon": "https://www.foodguessr.com/favicon.ico"
-                        },
-                        {
-                            "id": "foodguessr-plateoff",
-                            "name": "Foodguessr PlateOff",
-                            "url": "https://www.foodguessr.com/game/plate-off/daily",
-                            "favicon": "https://www.foodguessr.com/favicon.ico"
-                        }
-                    ]
-                },
-                {
-                    "id": "game",
-                    "name": "Game Themed",
-                    "icon": "fas fa-gamepad",
-                    "description": "Video game themed puzzles",
-                    "games": [
-                        {
-                            "id": "mcdle",
-                            "name": "Mcdle",
-                            "url": "https://www.mcdle.net/",
-                            "favicon": "https://www.mcdle.net/favicon.ico"
-                        },
-                        {
-                            "id": "minecraftle",
-                            "name": "Minecraftle",
-                            "url": "https://minecraftle.zachmanson.com/",
-                            "favicon": "https://minecraftle.zachmanson.com/favicon.ico"
-                        }
-                    ]
-                },
-                {
-                    "id": "music",
-                    "name": "Music Themed",
-                    "icon": "fas fa-music",
-                    "description": "Music and audio-based puzzles",
-                    "games": [
-                        {
-                            "id": "songless",
-                            "name": "Songless",
-                            "url": "https://lessgames.com/songless",
-                            "favicon": "https://lessgames.com/favicon.ico"
-                        }
-                    ]
-                },
-                {
-                    "id": "estimation",
-                    "name": "Estimation Themed",
-                    "icon": "fas fa-chart-line",
-                    "description": "Estimation and number-based puzzles",
-                    "games": [
-                        {
-                            "id": "moreless",
-                            "name": "Moreless",
-                            "url": "https://lessgames.com/moreless",
-                            "favicon": "https://lessgames.com/favicon.ico"
-                        }
-                    ]
-                }
-            ]
-        };
-
-        // Themes data
-        const themesData = {
-            "fallbackIcon": "fas fa-gamepad",
-            "topics": {
-                "word": {
-                    "color": "#4CAF50"
-                },
-                "geography": {
-                    "color": "#2196F3"
-                },
-                "flag": {
-                    "color": "#FF9800"
-                },
-                "food": {
-                    "color": "#E91E63"
-                },
-                "game": {
-                    "color": "#9C27B0"
-                },
-                "music": {
-                    "color": "#FF5722"
-                },
-                "estimation": {
-                    "color": "#00BCD4"
-                }
-            }
-        };
-
         // DOM Elements
         const gamesContainer = document.getElementById('gamesContainer');
         const searchBar = document.querySelector('.search-bar');
@@ -589,18 +440,40 @@
         // State
         let checkedGames = {};
         let filteredTopics = [];
+        let gamesData = { topics: [] };
 
         // Initialize the application
-        function init() {
+        async function init() {
+            await loadGamesData();
             loadCheckedGames();
             renderGames();
             setupEventListeners();
         }
 
+        // Load games data from external JSON file
+        async function loadGamesData() {
+            try {
+                const response = await fetch('games.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load games data');
+                }
+                gamesData = await response.json();
+            } catch (error) {
+                console.error('Error loading games data:', error);
+                gamesContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Failed to load games</h3>
+                        <p>Please check if games.json exists and is valid</p>
+                    </div>
+                `;
+            }
+        }
+
         // Load checked games from localStorage
         function loadCheckedGames() {
             const today = new Date().toDateString();
-            const storedData = localStorage.getItem('dailyGameHubChecked');
+            const storedData = localStorage.getItem('dailysChecked');
             
             if (storedData) {
                 const parsedData = JSON.parse(storedData);
@@ -623,7 +496,7 @@
                 date: today,
                 games: checkedGames
             };
-            localStorage.setItem('dailyGameHubChecked', JSON.stringify(dataToStore));
+            localStorage.setItem('dailysChecked', JSON.stringify(dataToStore));
         }
 
         // Toggle game completion status
@@ -635,6 +508,11 @@
             }
             saveCheckedGames();
             renderGames();
+        }
+
+        // Check if all games in a topic are completed
+        function isTopicCompleted(topic) {
+            return topic.games.every(game => checkedGames[game.id]);
         }
 
         // Render all games
@@ -660,6 +538,8 @@
             topicsToRender.forEach(topic => {
                 const topicElement = document.createElement('div');
                 topicElement.className = 'topic-section';
+                
+                const isTopicComplete = isTopicCompleted(topic);
                 
                 const gamesGrid = topic.games.map(game => {
                     const isChecked = checkedGames[game.id] || false;
@@ -692,6 +572,9 @@
                                     <i class="${topic.icon}"></i>
                                 </div>
                                 ${topic.name}
+                                <div class="section-checkmark ${isTopicComplete ? 'checked' : ''}">
+                                    <i class="fas fa-check"></i>
+                                </div>
                             </h2>
                             <div class="section-description">${topic.description}</div>
                         </div>
