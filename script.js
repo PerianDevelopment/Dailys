@@ -25,18 +25,18 @@ async function init() {
 // Load games data from external JSON file
 async function loadGamesData() {
     try {
-        const response = await fetch('games.json');
+        const response = await fetch('dailys.json');
         if (!response.ok) {
-            throw new Error('Failed to load games data');
+            throw new Error('Failed to load dailys data');
         }
         gamesData = await response.json();
     } catch (error) {
-        console.error('Error loading games data:', error);
+        console.error('Error loading dailys data:', error);
         gamesContainer.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-exclamation-triangle"></i>
-                <h3>Failed to load games</h3>
-                <p>Please check if games.json exists and is valid</p>
+                <h3>Failed to load dailys</h3>
+                <p>Please check if dailys.json exists and is valid</p>
             </div>
         `;
     }
@@ -151,7 +151,7 @@ function renderGames() {
         gamesContainer.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-search"></i>
-                <h3>No games found</h3>
+                <h3>No dailys found</h3>
                 <p>Try adjusting your search terms</p>
             </div>
         `;
