@@ -95,16 +95,22 @@
           "favicon": "https://globle-game.com/favicon.ico"
         },
         {
-          "id": "timeguessr",
-          "name": "Timeguessr",
-          "url": "https://timeguessr.com/",
-          "favicon": "https://timeguessr.com/favicon.ico"
-        },
-        {
           "id": "travle",
           "name": "Travle",
           "url": "https://travle.earth/",
           "favicon": "https://travle.earth/icons/favicon.ico"
+        },
+        {
+          "id": "maptap",
+          "name": "MapTap",
+          "url": "https://maptap.gg/",
+          "favicon": "https://travle.earth/icons/favicon.ico"
+        },
+        {
+          "id": "timeguessr",
+          "name": "Timeguessr",
+          "url": "https://timeguessr.com/",
+          "favicon": "https://timeguessr.com/favicon.ico"
         }
       ]
     },
