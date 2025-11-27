@@ -447,3 +447,10 @@ footer a:hover {
     color: var(--primary);
     text-decoration: underline;
 }
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    gap: 10px;
+    overflow: hidden; /* prevents pop-up layout jump */
+}
