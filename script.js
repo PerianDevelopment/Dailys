@@ -206,7 +206,7 @@ function renderGames() {
                 </div>
                 <i class="fas fa-chevron-down collapse-icon"></i>
             </div>
-            <div class="games-grid" style="display: ${isCollapsed ? 'none' : 'grid'}">
+            <div class="games-grid">
                 ${gamesGrid}
             </div>
         `;
@@ -242,7 +242,7 @@ function setupSectionToggleListeners() {
         const grid = section.querySelector('.games-grid');
         const topicId = section.getAttribute('data-topic-id');
 
-        // Set default collapsed/expanded state
+        // Set initial state
         if (collapsedSections[topicId]) {
             section.classList.remove("open");
             grid.style.maxHeight = "0px";
@@ -268,6 +268,7 @@ function setupSectionToggleListeners() {
         });
     });
 }
+
 
 
 // Filter games based on search query
