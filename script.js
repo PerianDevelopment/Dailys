@@ -203,29 +203,37 @@ function renderGames() {
 function setupSectionToggleListeners() {
     document.querySelectorAll('.section-title').forEach(title => {
         title.addEventListener('click', () => {
+
             const section = title.closest('.topic-section');
             const topicId = section.getAttribute('data-topic-id');
             const grid = title.nextElementSibling;
-            const opening = (grid.style.display === 'none');
+            const opening = grid.style.display === 'none';
+
+            const scrollY = window.scrollY;
 
             if (opening) {
                 grid.style.display = 'grid';
                 title.classList.remove('collapsed');
                 delete collapsedSections[topicId];
 
-                // 🔥 Prevents upward opening when deep scrolled
-                setTimeout(() => {
-                    title.scrollIntoView({ behavior: "smooth", block: "start" });
-                }, 30);
+                // restore scroll so it doesn't pop upward
+                requestAnimationFrame(()=>{
+                    window.scrollTo({ top: scrollY, behavior:"instant" });
+                });
 
             } else {
                 grid.style.display = 'none';
                 title.classList.add('collapsed');
                 collapsedSections[topicId] = true;
+
+                requestAnimationFrame(()=>{
+                    window.scrollTo({ top: scrollY, behavior:"instant" });
+                });
             }
         });
     });
 }
+
 
 // Game card toggles
 function setupGameCardListeners() {
