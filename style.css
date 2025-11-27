@@ -436,3 +436,14 @@ footer {
 .section-title {
     scroll-margin-top: 20px;
 }
+
+footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
