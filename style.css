@@ -417,24 +417,10 @@ footer {
     .logo h1 {
         font-size: 24px;
     }
-    
+
     .container {
         padding: 15px;
     }
-}
-
-.topic-section .games-grid {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.35s ease;
-}
-
-.topic-section.open .games-grid {
-    max-height: 2000px;
-}
-
-.section-title {
-    scroll-margin-top: 20px;
 }
 
 footer a {
@@ -446,11 +432,4 @@ footer a {
 footer a:hover {
     color: var(--primary);
     text-decoration: underline;
-}
-
-.games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
-    gap: 10px;
-    overflow: hidden; /* prevents pop-up layout jump */
 }
