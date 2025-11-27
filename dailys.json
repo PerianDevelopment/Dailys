@@ -157,6 +157,86 @@
       ]
     },
     {
+      "id": "estimation",
+      "name": "Estimation Themed",
+      "icon": "fas fa-chart-line",
+      "description": "Estimation and number-based dailys",
+      "games": [
+        {
+          "id": "coindle",
+          "name": "Coindle",
+          "url": "https://coindle.muhashi.com/",
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>💰</text></svg>"
+        },
+        {
+          "id": "moreless",
+          "name": "Moreless",
+          "url": "https://lessgames.com/moreless",
+          "favicon": "https://lessgames.com/favicon.ico"
+        },
+        {
+          "id": "brickdle",
+          "name": "Brickdle",
+          "url": "https://www.brickdle.com/",
+          "favicon": "https://www.brickdle.com/favicon.svg"
+        },
+        {
+          "id": "guessthehouse",
+          "name": "GuessTheHouse",
+          "url": "https://guessthe.house/",
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🏠</text></svg>"
+        },
+        {
+          "id": "guesstheangle",
+          "name": "GuessTheAngle",
+          "url": "https://guesstheangle.wtf/",
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>📐</text></svg>"
+        },
+        {
+          "id": "chartle",
+          "name": "Chartle",
+          "url": "https://chartle.cc/",
+          "favicon": "https://chartle.cc/favicon.ico"
+        },
+        {
+          "id": "graphs.world",
+          "name": "Graphs.World",
+          "url": "https://www.graphs.world/",
+          "favicon": "https://www.graphs.world/static/images/graphs-icon.png"
+        },
+        {
+          "id": "estimateme",
+          "name": "EstimateMe",
+          "url": "https://estimate-me.aukspot.com/",
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🤷</text></svg>"
+        },
+        {
+          "id": "timingle",
+          "name": "Timingle",
+          "url": "https://timingle.com/",
+          "favicon": "https://timingle.com/time.svg"
+        },
+        {
+          "id": "realbirdfakebird",
+          "name": "RealBirdFakeBird",
+          "url": "https://realbirdfakebird.com/",
+          "favicon": "https://realbirdfakebird.com/favicon.ico"
+        },
+        {
+          "id": "quizl",
+          "name": "Quizl",
+          "url": "https://quizl.io/",
+          "favicon": "https://quizl.io/favicon.ico"
+        },
+        {
+          "id": "quizlhex",
+          "name": "Quizl Hex",
+          "url": "https://quizl.io/hex",
+          "favicon": "https://quizl.io/favicon.ico"
+        }
+      ]
+    },
+    {
       "id": "flag",
       "name": "Flag Themed",
       "icon": "fas fa-flag",
@@ -213,86 +293,6 @@
           "name": "Songless",
           "url": "https://lessgames.com/songless",
           "favicon": "https://lessgames.com/favicon.ico"
-        }
-      ]
-    },
-    {
-      "id": "estimation",
-      "name": "Estimation Themed",
-      "icon": "fas fa-chart-line",
-      "description": "Estimation and number-based dailys",
-      "games": [
-        {
-          "id": "coindle",
-          "name": "Coindle",
-          "url": "https://coindle.muhashi.com/",
-          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>💰</text></svg>"
-        },
-        {
-          "id": "moreless",
-          "name": "Moreless",
-          "url": "https://lessgames.com/moreless",
-          "favicon": "https://lessgames.com/favicon.ico"
-        },
-        {
-          "id": "brickdle",
-          "name": "Brickdle",
-          "url": "https://www.brickdle.com/",
-          "favicon": "https://www.brickdle.com/favicon.svg"
-        },
-        {
-          "id": "guessthehouse",
-          "name": "GuessTheHouse",
-          "url": "https://guessthe.house/",
-          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🏠</text></svg>"
-        },
-        {
-          "id": "guesstheangle",
-          "name": "GuessTheAngle",
-          "url": "https://guesstheangle.wtf/",
-          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>📐</text></svg>"
-        },
-        {
-          "id": "chartle",
-          "name": "Chartle",
-          "url": "https://chartle.cc/",
-          "favicon": "https://chartle.cc/favicon.ico"
-        },
-        {
-          "id": "graphs.world",
-          "name": "Graphs.World",
-          "url": "https://www.graphs.world/",
-          "favicon": "https://www.graphs.world/static/images/graphs-icon.png"
-        },
-        {
-          "id": "estimateme",
-          "name": "EstimateMe",
-          "url": "https://estimate-me.aukspot.com/",
-          "favicon": "https://estimate-me.aukspot.com/favicon.png"
-        },
-        {
-          "id": "timingle",
-          "name": "Timingle",
-          "url": "https://timingle.com/",
-          "favicon": "https://timingle.com/time.svg"
-        },
-        {
-          "id": "realbirdfakebird",
-          "name": "RealBirdFakeBird",
-          "url": "https://realbirdfakebird.com/",
-          "favicon": "https://realbirdfakebird.com/favicon.ico"
-        },
-        {
-          "id": "quizl",
-          "name": "Quizl",
-          "url": "https://quizl.io/",
-          "favicon": "https://quizl.io/favicon.ico"
-        },
-        {
-          "id": "quizlhex",
-          "name": "Quizl Hex",
-          "url": "https://quizl.io/hex",
-          "favicon": "https://quizl.io/favicon.ico"
         }
       ]
     },
