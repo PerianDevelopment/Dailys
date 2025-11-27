@@ -12,12 +12,12 @@ let collapsedSections = {};
 async function init() {
     await loadGamesData();
     loadCheckedGames();
-    
+
     // Initialize all sections as collapsed
     gamesData.topics.forEach(topic => {
         collapsedSections[topic.id] = true;
     });
-    
+
     renderGames();
     setupEventListeners();
 }
@@ -46,13 +46,15 @@ async function loadGamesData() {
 function loadCheckedGames() {
     const today = new Date().toDateString();
     const storedData = localStorage.getItem('dailysChecked');
-    
+
     if (storedData) {
         const parsedData = JSON.parse(storedData);
-        
+
+        // Check if the stored data is from today
         if (parsedData.date === today) {
             checkedGames = parsedData.games;
         } else {
+            // Reset if it's a new day
             checkedGames = {};
             saveCheckedGames();
         }
@@ -71,17 +73,23 @@ function saveCheckedGames() {
 
 // Toggle game completion status
 function toggleGameCheck(gameId) {
-    if (checkedGames[gameId]) delete checkedGames[gameId];
-    else checkedGames[gameId] = true;
-
+    if (checkedGames[gameId]) {
+        delete checkedGames[gameId];
+    } else {
+        checkedGames[gameId] = true;
+    }
     saveCheckedGames();
+
+    // Update only the affected section, not all sections
     updateSectionCompletion(gameId);
 }
 
-// Update UI after checking/unchecking
+// Update section completion status without re-rendering everything
 function updateSectionCompletion(gameId) {
+    // Find which topic this game belongs to
     let targetTopic = null;
     let targetTopicId = null;
+
     const topicsToCheck = filteredTopics.length > 0 ? filteredTopics : gamesData.topics;
 
     for (const topic of topicsToCheck) {
@@ -97,39 +105,46 @@ function updateSectionCompletion(gameId) {
 
     if (!targetTopic) return;
 
+    // Update the section checkmark
     const isTopicComplete = isTopicCompleted(targetTopic);
     const sectionTitle = document.querySelector(`[data-topic-id="${targetTopicId}"] .section-title h2`);
     if (sectionTitle) {
         const checkmark = sectionTitle.querySelector('.section-checkmark');
         if (checkmark) {
-            if (isTopicComplete) checkmark.classList.add('checked');
-            else checkmark.classList.remove('checked');
+            if (isTopicComplete) {
+                checkmark.classList.add('checked');
+            } else {
+                checkmark.classList.remove('checked');
+            }
         }
     }
 
+    // Update the game card
     const gameCard = document.querySelector(`[data-game-id="${gameId}"]`);
     if (gameCard) {
-        const title = gameCard.querySelector('.game-title');
         if (checkedGames[gameId]) {
             gameCard.classList.add('checked');
-            title.style.textDecoration = 'line-through';
-            title.style.color = 'var(--text-secondary)';
+            gameCard.querySelector('.game-title').style.textDecoration = 'line-through';
+            gameCard.querySelector('.game-title').style.color = 'var(--text-secondary)';
         } else {
             gameCard.classList.remove('checked');
-            title.style.textDecoration = 'none';
-            title.style.color = '';
+            gameCard.querySelector('.game-title').style.textDecoration = 'none';
+            gameCard.querySelector('.game-title').style.color = '';
         }
     }
 }
 
-// Check if full topic completed
+// Check if all games in a topic are completed
 function isTopicCompleted(topic) {
-    return topic.games.every(g => checkedGames[g.id]);
+    return topic.games.every(game => checkedGames[game.id]);
 }
 
-// Render topics + games
+// Render all games
 function renderGames() {
+    // Clear container
     gamesContainer.innerHTML = '';
+
+    // Use filtered topics if search is active, otherwise use all topics
     const topicsToRender = filteredTopics.length > 0 ? filteredTopics : gamesData.topics;
 
     if (topicsToRender.length === 0) {
@@ -143,6 +158,7 @@ function renderGames() {
         return;
     }
 
+    // Render each topic section
     topicsToRender.forEach(topic => {
         const topicElement = document.createElement('div');
         topicElement.className = 'topic-section';
@@ -152,32 +168,35 @@ function renderGames() {
         const isCollapsed = collapsedSections[topic.id];
 
         const gamesGrid = topic.games.map(game => {
-            const checked = checkedGames[game.id] ? 'checked' : '';
+            const isChecked = checkedGames[game.id] || false;
+
             return `
-                <div class="game-card ${checked}" data-game-id="${game.id}">
+                <div class="game-card ${isChecked ? 'checked' : ''}" data-game-id="${game.id}">
                     <div class="game-content">
                         <div class="game-info">
                             <div class="game-favicon">
-                                ${game.favicon ?
-                                `<img src="${game.favicon}" alt="${game.name}" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\\'fas fa-gamepad\\'></i>';">`
-                                : `<i class="fas fa-gamepad"></i>`}
+                                ${game.favicon ? 
+                                    `<img src="${game.favicon}" alt="${game.name} icon" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\\'fas fa-gamepad\\'></i>';">` : 
+                                    `<i class="fas fa-gamepad"></i>`
+                                }
                             </div>
-                            <div class="game-title" style="${checked ? 'text-decoration:line-through;color:var(--text-secondary);' : ''}">
-                                ${game.name}
-                            </div>
+                            <div class="game-title" style="${isChecked ? 'text-decoration: line-through; color: var(--text-secondary)' : ''}">${game.name}</div>
                         </div>
                         <a href="${game.url}" target="_blank" class="game-link">
                             Play Now <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
-                </div>`;
+                </div>
+            `;
         }).join('');
 
         topicElement.innerHTML = `
             <div class="section-title ${isCollapsed ? 'collapsed' : ''}">
                 <div>
                     <h2>
-                        <div class="section-icon"><i class="${topic.icon}"></i></div>
+                        <div class="section-icon">
+                            <i class="${topic.icon}"></i>
+                        </div>
                         ${topic.name}
                         <div class="section-checkmark ${isTopicComplete ? 'checked' : ''}">
                             <i class="fas fa-check"></i>
@@ -187,7 +206,7 @@ function renderGames() {
                 </div>
                 <i class="fas fa-chevron-down collapse-icon"></i>
             </div>
-            <div class="games-grid" style="display:${isCollapsed ? 'none' : 'grid'}">
+            <div class="games-grid" style="display: ${isCollapsed ? 'none' : 'grid'}">
                 ${gamesGrid}
             </div>
         `;
@@ -195,77 +214,96 @@ function renderGames() {
         gamesContainer.appendChild(topicElement);
     });
 
+    // Add event listeners to game cards and section titles
     setupGameCardListeners();
     setupSectionToggleListeners();
 }
 
-// Click toggle — FIXED downward opening
+// Setup event listeners for game cards
+function setupGameCardListeners() {
+    document.querySelectorAll('.game-card').forEach(card => {
+        // Make entire card clickable (except the Play Now link)
+        card.addEventListener('click', (e) => {
+            // Don't trigger if the click was on the Play Now link
+            if (e.target.closest('.game-link')) {
+                return;
+            }
+
+            const gameId = card.getAttribute('data-game-id');
+            toggleGameCheck(gameId);
+        });
+    });
+}
+
+// Setup event listeners for section toggling
 function setupSectionToggleListeners() {
     document.querySelectorAll('.section-title').forEach(title => {
+
+
+
+
+
+
+
+
+
+
+
+
+
         title.addEventListener('click', () => {
-
-            const section = title.closest('.topic-section');
-            const topicId = section.getAttribute('data-topic-id');
-            const grid = title.nextElementSibling;
-            const opening = grid.style.display === 'none';
-
-            const scrollY = window.scrollY;
-
-            if (opening) {
-                grid.style.display = 'grid';
+            const topicSection = title.closest('.topic-section');
+            const topicId = topicSection.getAttribute('data-topic-id');
+            const gamesGrid = title.nextElementSibling;
+            const isCollapsed = gamesGrid.style.display === 'none';
+            
+            if (isCollapsed) {
+                gamesGrid.style.display = 'grid';
                 title.classList.remove('collapsed');
                 delete collapsedSections[topicId];
-
-                // restore scroll so it doesn't pop upward
-                requestAnimationFrame(()=>{
-                    window.scrollTo({ top: scrollY, behavior:"instant" });
-                });
-
             } else {
-                grid.style.display = 'none';
+                gamesGrid.style.display = 'none';
                 title.classList.add('collapsed');
                 collapsedSections[topicId] = true;
 
-                requestAnimationFrame(()=>{
-                    window.scrollTo({ top: scrollY, behavior:"instant" });
-                });
             }
         });
     });
 }
 
 
-// Game card toggles
-function setupGameCardListeners() {
-    document.querySelectorAll('.game-card').forEach(card => {
-        card.addEventListener('click', e => {
-            if (e.target.closest('.game-link')) return; // ignore button click
-            toggleGameCheck(card.getAttribute('data-game-id'));
-        });
-    });
-}
-
-// Filtering system
+// Filter games based on search query
 function filterGames(query) {
-    const q = query.toLowerCase().trim();
-    if (!q) return filteredTopics=[], renderGames();
+    const lowerQuery = query.toLowerCase().trim();
+
+    if (!lowerQuery) {
+        filteredTopics = [];
+        renderGames();
+        return;
+    }
 
     filteredTopics = gamesData.topics.map(topic => {
-        const matched = topic.games.filter(game =>
-            game.name.toLowerCase().includes(q) ||
-            topic.name.toLowerCase().includes(q) ||
-            topic.description.toLowerCase().includes(q)
+        const filteredGames = topic.games.filter(game => 
+            game.name.toLowerCase().includes(lowerQuery) || 
+            topic.name.toLowerCase().includes(lowerQuery) ||
+            topic.description.toLowerCase().includes(lowerQuery)
         );
-        return matched.length ? { ...topic, games: matched } : null;
-    }).filter(Boolean);
+
+        return filteredGames.length > 0 ? { ...topic, games: filteredGames } : null;
+    }).filter(topic => topic !== null);
 
     renderGames();
 }
 
-// Search listeners
+// Setup all event listeners
 function setupEventListeners() {
-    searchBar.addEventListener('input', e => filterGames(e.target.value));
-    searchBar.addEventListener('keydown', e => {
+    // Search functionality
+    searchBar.addEventListener('input', (e) => {
+        filterGames(e.target.value);
+    });
+
+    // Clear search on escape key
+    searchBar.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             searchBar.value = '';
             filterGames('');
@@ -273,4 +311,5 @@ function setupEventListeners() {
     });
 }
 
+// Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
