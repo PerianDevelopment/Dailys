@@ -237,25 +237,38 @@ function setupGameCardListeners() {
 
 // Setup event listeners for section toggling
 function setupSectionToggleListeners() {
-    document.querySelectorAll('.section-title').forEach(title => {
+    document.querySelectorAll('.topic-section').forEach(section => {
+        const title = section.querySelector('.section-title');
+        const grid = section.querySelector('.games-grid');
+        const topicId = section.getAttribute('data-topic-id');
+
+        // Set default collapsed/expanded state
+        if (collapsedSections[topicId]) {
+            section.classList.remove("open");
+            grid.style.maxHeight = "0px";
+        } else {
+            section.classList.add("open");
+            grid.style.maxHeight = grid.scrollHeight + "px";
+        }
+
         title.addEventListener('click', () => {
-            const topicSection = title.closest('.topic-section');
-            const topicId = topicSection.getAttribute('data-topic-id');
-            const gamesGrid = title.nextElementSibling;
-            const isCollapsed = gamesGrid.style.display === 'none';
-            
-            if (isCollapsed) {
-                gamesGrid.style.display = 'grid';
-                title.classList.remove('collapsed');
-                delete collapsedSections[topicId];
+            const isOpening = !section.classList.contains("open");
+
+            section.classList.toggle("open", isOpening);
+
+            if (isOpening) {
+                collapsedSections[topicId] = false;
+                grid.style.maxHeight = grid.scrollHeight + "px";
+
+                section.scrollIntoView({ behavior: "smooth", block: "start" });
             } else {
-                gamesGrid.style.display = 'none';
-                title.classList.add('collapsed');
                 collapsedSections[topicId] = true;
+                grid.style.maxHeight = "0px";
             }
         });
     });
 }
+
 
 // Filter games based on search query
 function filterGames(query) {
