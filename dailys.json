@@ -34,7 +34,7 @@
           "id": "wordgy",
           "name": "Wordgy",
           "url": "https://wordgy.com/",
-          "favicon": "https://wordgy.com/favicon.ico"
+          "favicon": "https://wordgy.com/assets/favicon.8b6c5cf0.ico"
         },
         {
           "id": "wafflegame",
@@ -84,13 +84,13 @@
           "id": "eowordles",
           "name": "Eater of Wordles",
           "url": "https://hexdecima.github.io/eowordles/",
-          "favicon": "https://hexdecima.github.io/eowordles/favicon.ico"
+          "favicon": "https://terraria.org/favicon.ico"
         },
         {
           "id": "terradle",
           "name": "Terradle",
           "url": "https://www.terradle.com/",
-          "favicon": "https://www.terradle.com/favicon.ico"
+          "favicon": "https://www.terradle.com/favicon.png"
         },
         {
           "id": "steamdle",
@@ -146,13 +146,13 @@
           "id": "geoconnections",
           "name": "GeoConnections",
           "url": "https://geoconnections.net/",
-          "favicon": "https://geoconnections.net/icons/favicon.ico"
+          "favicon": "https://geoconnections.net/favicon.ico"
         },
         {
           "id": "mapster",
           "name": "Mapster",
           "url": "https://mapster.teuteuf.fr/",
-          "favicon": "https://mapster.teuteuf.fr/icons/favicon.ico"
+          "favicon": "https://mapster.teuteuf.fr/favicon.svg"
         }
       ]
     },
@@ -238,19 +238,19 @@
           "id": "brickdle",
           "name": "Brickdle",
           "url": "https://www.brickdle.com/",
-          "favicon": "https://www.brickdle.com/favicon.ico"
+          "favicon": "https://www.brickdle.com/favicon.svg"
         },
         {
           "id": "guessthehouse",
           "name": "GuessTheHouse",
           "url": "https://guessthe.house/",
-          "favicon": "https://guessthe.house/favicon.ico"
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🏠</text></svg>"
         },
         {
           "id": "guesstheangle",
           "name": "GuessTheAngle",
           "url": "https://guesstheangle.wtf/",
-          "favicon": "https://guesstheangle.wtf/favicon.ico"
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>📐</text></svg>"
         },
         {
           "id": "chartle",
@@ -262,19 +262,19 @@
           "id": "graphs.world",
           "name": "Graphs.World",
           "url": "https://www.graphs.world/",
-          "favicon": "https://www.graphs.world/favicon.ico"
+          "favicon": "https://www.graphs.world//static/images/graphs-icon.png"
         },
         {
           "id": "estimateme",
           "name": "EstimateMe",
           "url": "https://estimate-me.aukspot.com/",
-          "favicon": "https://estimate-me.aukspot.com/favicon.ico"
+          "favicon": "https://estimate-me.aukspot.com/favicon.png"
         },
         {
           "id": "timingle",
           "name": "Timingle",
           "url": "https://timingle.com/",
-          "favicon": "https://timingle.com/favicon.ico"
+          "favicon": "https://timingle.com/time.svg"
         },
         {
           "id": "realbirdfakebird",
@@ -326,7 +326,7 @@
           "id": "colorguesser",
           "name": "ColorGuesser",
           "url": "https://colorguesser.com/",
-          "favicon": "https://colorguesser.com/favicon.png"
+          "favicon": "https://colorguesser.com/favicon.ico"
         }
       ]
     },
@@ -340,11 +340,11 @@
           "id": "spotdifferences",
           "name": "SpotDifferences",
           "url": "https://www.spot-differences.com/spot-the-differences-more/",
-          "favicon": "https://www.spot-differences.com/favicon.png"
+          "favicon": "https://www.spot-differences.com/favicon-32x32.png"
         },
         {
           "id": "thewikigamedaily",
-          "name": "TheWikiGameDaily",
+          "name": "WikiGame",
           "url": "https://www.thewikigamedaily.com/",
           "favicon": "https://www.thewikigamedaily.com/favicon.png"
         },
@@ -352,7 +352,7 @@
           "id": "cropple",
           "name": "Cropple",
           "url": "https://cropple.app/",
-          "favicon": "https://cropple.app/favicon.png"
+          "favicon": "https://cropple.app/assets/favicon.ico"
         }
       ]
     }
