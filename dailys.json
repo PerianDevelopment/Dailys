@@ -334,7 +334,7 @@
       "id": "other",
       "name": "Other Themes",
       "icon": "fas fa-question",
-      "description": "Color-based dailys",
+      "description": "Various dailys",
       "games": [
         {
           "id": "spotdifferences",
