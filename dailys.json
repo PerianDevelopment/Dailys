@@ -25,12 +25,6 @@
           "favicon": "https://www.lewdlegame.com/favicon.ico"
         },
         {
-          "id": "octordle",
-          "name": "Octordle",
-          "url": "https://www.britannica.com/games/octordle/extreme",
-          "favicon": "https://www.britannica.com/games/octordle/favicon.ico"
-        },
-        {
           "id": "wordgy",
           "name": "Wordgy",
           "url": "https://wordgy.com/",
@@ -41,6 +35,18 @@
           "name": "Wafflegame",
           "url": "https://wafflegame.net/daily",
           "favicon": "https://wafflegame.net/favicon.ico"
+        },
+        {
+          "id": "octordle",
+          "name": "Octordle",
+          "url": "https://www.britannica.com/games/octordle/extreme",
+          "favicon": "https://www.britannica.com/games/octordle/favicon.ico"
+        },
+        {
+          "id": "duotrigordle",
+          "name": "Duotrigordle",
+          "url": "https://duotrigordle.com/",
+          "favicon": "https://duotrigordle.com/favicon.ico"
         }
       ]
     },
@@ -81,22 +87,28 @@
           "favicon": "https://pokedle.net/favicon.ico"
         },
         {
-          "id": "eowordles",
-          "name": "Eater of Wordles",
-          "url": "https://hexdecima.github.io/eowordles/",
-          "favicon": "https://terraria.org/favicon.ico"
-        },
-        {
-          "id": "terradle",
-          "name": "Terradle",
-          "url": "https://www.terradle.com/",
-          "favicon": "https://www.terradle.com/favicon.png"
-        },
-        {
           "id": "steamdle",
           "name": "Steamdle",
           "url": "https://steamdle.com/",
           "favicon": "https://steamdle.com/favicon.ico"
+        },
+        {
+          "id": "rougle",
+          "name": "Rougle",
+          "url": "https://rogule.com/",
+          "favicon": "https://rogule.com/icon.png"
+        },
+        {
+          "id": "minigolfle",
+          "name": "Minigolfle",
+          "url": "https://minigolfle.com/",
+          "favicon": "https://minigolfle.com/m.svg"
+        },
+        {
+          "id": "thewikigamedaily",
+          "name": "WikiGame",
+          "url": "https://www.thewikigamedaily.com/",
+          "favicon": "https://www.thewikigamedaily.com/favicon.png"
         }
       ]
     },
@@ -153,6 +165,12 @@
           "name": "Mapster",
           "url": "https://mapster.teuteuf.fr/",
           "favicon": "https://mapster.teuteuf.fr/favicon.svg"
+        },
+        {
+          "id": "flagle",
+          "name": "Flagle",
+          "url": "https://flagle-game.com/",
+          "favicon": "https://flagle-game.com/favicon.ico"
         }
       ]
     },
@@ -199,66 +217,28 @@
           "favicon": "https://chartle.cc/favicon.ico"
         },
         {
-          "id": "graphs.world",
-          "name": "Graphs.World",
-          "url": "https://www.graphs.world/",
-          "favicon": "https://www.graphs.world/static/images/graphs-icon.png"
-        },
-        {
           "id": "estimateme",
           "name": "EstimateMe",
           "url": "https://estimate-me.aukspot.com/",
           "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🤷</text></svg>"
         },
         {
-          "id": "timingle",
-          "name": "Timingle",
-          "url": "https://timingle.com/",
-          "favicon": "https://timingle.com/time.svg"
+          "id": "cropple",
+          "name": "Cropple",
+          "url": "https://cropple.app/",
+          "favicon": "https://cropple.app/assets/favicon.ico"
         },
         {
-          "id": "realbirdfakebird",
-          "name": "RealBirdFakeBird",
-          "url": "https://realbirdfakebird.com/",
-          "favicon": "https://realbirdfakebird.com/favicon.ico"
+          "id": "r34dle",
+          "name": "Rule34dle",
+          "url": "https://r34dle.com/game/daily/",
+          "favicon": "https://www.rule34dle.org/logo.svg"
         },
         {
-          "id": "quizl",
-          "name": "Quizl",
-          "url": "https://quizl.io/",
-          "favicon": "https://quizl.io/favicon.ico"
-        },
-        {
-          "id": "quizlhex",
-          "name": "Quizl Hex",
-          "url": "https://quizl.io/hex",
-          "favicon": "https://quizl.io/favicon.ico"
-        }
-      ]
-    },
-    {
-      "id": "flag",
-      "name": "Flag Themed",
-      "icon": "fas fa-flag",
-      "description": "Flag-based dailys",
-      "games": [
-        {
-          "id": "flaggle",
-          "name": "Flagle",
-          "url": "https://flagle-game.com/daily",
-          "favicon": "https://flagle-game.com/favicon.ico"
-        },
-        {
-          "id": "flagdoku",
-          "name": "FlagDoku",
-          "url": "https://flagdoku.com/",
-          "favicon": "https://flagdoku.com/favicon.ico"
-        },
-        {
-          "id": "flagged",
-          "name": "Flagged",
-          "url": "https://gamebunny.app/flagged",
-          "favicon": "https://gamebunny.app/favicon.ico"
+          "id": "colorguesser",
+          "name": "ColorGuesser",
+          "url": "https://colorguesser.com/",
+          "favicon": "https://colorguesser.com/favicon.ico"
         }
       ]
     },
@@ -271,13 +251,13 @@
         {
           "id": "foodguessr",
           "name": "Foodguessr",
-          "url": "https://www.foodguessr.com/game/daily",
+          "url": "https://www.foodguessr.com/",
           "favicon": "https://www.foodguessr.com/favicon.ico"
         },
         {
           "id": "foodguessr-plateoff",
           "name": "Foodguessr PlateOff",
-          "url": "https://www.foodguessr.com/game/plate-off/daily",
+          "url": "https://www.foodguessr.com/",
           "favicon": "https://www.foodguessr.com/favicon.ico"
         }
       ]
@@ -313,46 +293,6 @@
           "name": "Onepiecedle",
           "url": "https://onepiecedle.net/",
           "favicon": "https://onepiecedle.net/favicon.ico"
-        }
-      ]
-    },
-    {
-      "id": "color",
-      "name": "Color Themed",
-      "icon": "fas fa-paint-brush",
-      "description": "Color-based dailys",
-      "games": [
-        {
-          "id": "colorguesser",
-          "name": "ColorGuesser",
-          "url": "https://colorguesser.com/",
-          "favicon": "https://colorguesser.com/favicon.ico"
-        }
-      ]
-    },
-    {
-      "id": "other",
-      "name": "Other Themes",
-      "icon": "fas fa-question",
-      "description": "Various dailys",
-      "games": [
-        {
-          "id": "spotdifferences",
-          "name": "SpotDifferences",
-          "url": "https://www.spot-differences.com/spot-the-differences-more/",
-          "favicon": "https://www.spot-differences.com/favicon-32x32.png"
-        },
-        {
-          "id": "thewikigamedaily",
-          "name": "WikiGame",
-          "url": "https://www.thewikigamedaily.com/",
-          "favicon": "https://www.thewikigamedaily.com/favicon.png"
-        },
-        {
-          "id": "cropple",
-          "name": "Cropple",
-          "url": "https://cropple.app/",
-          "favicon": "https://cropple.app/assets/favicon.ico"
         }
       ]
     }
