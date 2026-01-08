@@ -51,68 +51,6 @@
       ]
     },
     {
-      "id": "game",
-      "name": "Game Themed",
-      "icon": "fas fa-gamepad",
-      "description": "Videogame-based dailys",
-      "games": [
-        {
-          "id": "mcdle",
-          "name": "Mcdle",
-          "url": "https://www.mcdle.net/",
-          "favicon": "https://www.mcdle.net/Mcdle.webp"
-        },
-        {
-          "id": "minecraftle",
-          "name": "Minecraftle",
-          "url": "https://minecraftle.zachmanson.com/",
-          "favicon": "https://minecraftle.zachmanson.com/icons/favicon-32x32.png"
-        },
-        {
-          "id": "loldle",
-          "name": "Loldle",
-          "url": "https://loldle.net/",
-          "favicon": "https://loldle.net/favicon.ico"
-        },
-        {
-          "id": "royaledle",
-          "name": "Royaledle",
-          "url": "https://royaledle.com/",
-          "favicon": "https://royaledle.com/favicon.ico"
-        },
-        {
-          "id": "pokedle",
-          "name": "Pokédle",
-          "url": "https://pokedle.net/",
-          "favicon": "https://pokedle.net/favicon.ico"
-        },
-        {
-          "id": "steamdle",
-          "name": "Steamdle",
-          "url": "https://steamdle.com/",
-          "favicon": "https://steamdle.com/favicon.ico"
-        },
-        {
-          "id": "rougle",
-          "name": "Rougle",
-          "url": "https://rogule.com/",
-          "favicon": "https://rogule.com/icon.png"
-        },
-        {
-          "id": "minigolfle",
-          "name": "Minigolfle",
-          "url": "https://minigolfle.com/",
-          "favicon": "https://minigolfle.com/m.svg"
-        },
-        {
-          "id": "thewikigamedaily",
-          "name": "WikiGame",
-          "url": "https://www.thewikigamedaily.com/",
-          "favicon": "https://www.thewikigamedaily.com/favicon.png"
-        }
-      ]
-    },
-    {
       "id": "geography",
       "name": "Geography Themed",
       "icon": "fas fa-globe-americas",
@@ -233,12 +171,82 @@
           "name": "Rule34dle",
           "url": "https://r34dle.com/game/daily/",
           "favicon": "https://www.rule34dle.org/logo.svg"
+        }
+      ]
+    },
+    {
+      "id": "game",
+      "name": "Game Themed",
+      "icon": "fas fa-gamepad",
+      "description": "Videogame-based dailys",
+      "games": [
+        {
+          "id": "mcdle",
+          "name": "Mcdle",
+          "url": "https://www.mcdle.net/",
+          "favicon": "https://www.mcdle.net/Mcdle.webp"
         },
         {
-          "id": "colorguesser",
-          "name": "ColorGuesser",
-          "url": "https://colorguesser.com/",
-          "favicon": "https://colorguesser.com/favicon.ico"
+          "id": "minecraftle",
+          "name": "Minecraftle",
+          "url": "https://minecraftle.zachmanson.com/",
+          "favicon": "https://minecraftle.zachmanson.com/icons/favicon-32x32.png"
+        },
+        {
+          "id": "loldle",
+          "name": "Loldle",
+          "url": "https://loldle.net/",
+          "favicon": "https://loldle.net/favicon.ico"
+        },
+        {
+          "id": "royaledle",
+          "name": "Royaledle",
+          "url": "https://royaledle.com/",
+          "favicon": "https://royaledle.com/favicon.ico"
+        },
+        {
+          "id": "pokedle",
+          "name": "Pokédle",
+          "url": "https://pokedle.net/",
+          "favicon": "https://pokedle.net/favicon.ico"
+        },
+        {
+          "id": "steamdle",
+          "name": "Steamdle",
+          "url": "https://steamdle.com/",
+          "favicon": "https://steamdle.com/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "playable",
+      "name": "Playable Dailys",
+      "icon": "fas fa-chess",
+      "description": "Daily games which can be played",
+      "games": [
+        {
+          "id": "chess",
+          "name": "Chess Puzzle",
+          "url": "https://www.chess.com/",
+          "favicon": "https://www.chess.com/favicon.ico"
+        },
+        {
+          "id": "minigolfle",
+          "name": "Minigolfle",
+          "url": "https://minigolfle.com/",
+          "favicon": "https://minigolfle.com/m.svg"
+        },
+        {
+          "id": "rogule",
+          "name": "Rogule",
+          "url": "https://rogule.com/",
+          "favicon": "https://rogule.com/icon.png"
+        },
+        {
+          "id": "thewikigamedaily",
+          "name": "Wiki Game",
+          "url": "https://www.thewikigamedaily.com/",
+          "favicon": "https://www.thewikigamedaily.com/favicon.png"
         }
       ]
     },
