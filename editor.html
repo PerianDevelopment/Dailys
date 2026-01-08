@@ -3,330 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily's JSON Editor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Dailys Editor</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        :root {
-            --bg-color: #0f1115;
-            --surface-color: #181b21;
-            --surface-hover: #1f232b;
-            --primary: #6366f1; /* Indigo */
-            --primary-hover: #4f46e5;
-            --danger: #ef4444;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border: #2d3748;
-            --radius: 12px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
-        }
-
-        * { box-sizing: border-box; outline: none; }
+        /* --- Editor Specific Overrides & Additions --- */
         
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* --- Header & Controls --- */
-        header {
-            background: rgba(15, 17, 21, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow);
-        }
-
-        .brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .controls {
+        /* Toolbar in Header */
+        .editor-toolbar {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
 
-        button {
-            background: var(--surface-color);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
 
-        button:hover { background: var(--surface-hover); border-color: var(--text-muted); }
-        
-        button.primary {
+        .btn-primary {
             background: var(--primary);
-            border-color: var(--primary);
             color: white;
         }
-        button.primary:hover { background: var(--primary-hover); }
+        .btn-primary:hover { background: var(--primary-dark); }
 
-        button.danger { color: var(--danger); border-color: rgba(239, 68, 68, 0.3); }
-        button.danger:hover { background: rgba(239, 68, 68, 0.1); }
-
-        /* --- Main Layout --- */
-        main {
-            flex: 1;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
+        .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--text-secondary); }
 
-        .empty-state {
-            text-align: center;
-            padding: 4rem;
-            color: var(--text-muted);
+        .btn-danger {
+            background: rgba(255, 56, 46, 0.1);
+            color: #ff4444;
+            border: 1px solid rgba(255, 56, 46, 0.2);
         }
+        .btn-danger:hover { background: rgba(255, 56, 46, 0.2); }
 
-        /* --- Grid & Cards --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
+        /* Drag and Drop Visuals */
+        .draggable-source {
+            opacity: 0.4;
+            border: 2px dashed var(--primary);
         }
+        .drag-handle {
+            cursor: grab;
+            color: var(--text-secondary);
+            padding: 5px;
+            margin-right: 5px;
+        }
+        .drag-handle:active { cursor: grabbing; color: var(--primary); }
 
-        .category-card {
-            background: var(--surface-color);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
+        /* Category Card Edit Mode */
+        .category-wrapper {
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
         }
 
-        .category-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-            border-color: #4b5563;
-        }
-
-        /* Category Header */
-        .cat-header {
-            padding: 1.25rem;
-            border-bottom: 1px solid var(--border);
-            background: rgba(255,255,255,0.02);
+        .cat-header-edit {
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .cat-info { flex: 1; }
-        .cat-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 0 0 5px 0;
+        .cat-title-group {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .cat-desc { font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.4; }
-        .cat-icon-preview { color: var(--primary); }
+        .cat-title-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .cat-desc-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-left: 10px;
+        }
 
-        .cat-actions { display: flex; gap: 5px; margin-left: 10px; }
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
+
         .icon-btn {
             background: transparent;
             border: none;
-            padding: 5px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             cursor: pointer;
+            padding: 6px;
             border-radius: 4px;
+            transition: var(--transition);
         }
-        .icon-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.1); }
-        .icon-btn.delete:hover { color: var(--danger); }
+        .icon-btn:hover { color: var(--primary); background: rgba(255,255,255,0.05); }
+        .icon-btn.delete:hover { color: #ff4444; }
 
-        /* Games List inside Category */
-        .games-list {
-            padding: 1rem;
+        /* Game Card Edit Mode overrides */
+        .game-card {
+            /* Enforce height for editor consistency */
+            height: auto; 
+            min-height: 80px;
+        }
+        
+        .game-actions {
             display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            flex: 1;
+            gap: 5px;
+            margin-left: 10px;
         }
 
-        .game-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            border: 1px solid transparent;
-            transition: all 0.2s;
+        .add-game-area {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
         }
-
-        .game-item:hover {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.1);
-        }
-
-        .game-favicon {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            object-fit: contain;
-            background: #2d3748; /* Placeholder bg */
-        }
-
-        .game-details { flex: 1; min-width: 0; }
-        .game-name { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .game-url { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
         .add-game-btn {
-            margin: 0 1rem 1rem 1rem;
-            border: 1px dashed var(--border);
+            width: 100%;
+            padding: 12px;
             background: transparent;
-            color: var(--text-muted);
-            justify-content: center;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
         }
         .add-game-btn:hover {
             border-color: var(--primary);
             color: var(--primary);
-            background: rgba(99, 102, 241, 0.05);
+            background: rgba(255, 56, 46, 0.05);
         }
 
-        /* --- Modal --- */
+        /* Modals */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s ease;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
 
         .modal {
-            background: var(--surface-color);
-            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
             max-width: 500px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-            padding: 2rem;
-            transform: scale(0.95);
-            transition: transform 0.3s;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
         }
-        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-overlay.active .modal { transform: translateY(0); }
 
-        .modal h2 { margin-top: 0; margin-bottom: 1.5rem; }
+        .modal h2 { margin-bottom: 20px; color: var(--primary); }
 
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted); }
-        .form-group input, .form-group textarea {
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; color: var(--text-secondary); margin-bottom: 8px; font-size: 14px; }
+        
+        /* Reusing search-bar style for inputs */
+        .form-input {
             width: 100%;
-            padding: 10px 12px;
-            background: #0f1115;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-main);
-            font-family: inherit;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
         }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+        .form-input:focus { border-color: var(--primary); }
+        textarea.form-input { resize: vertical; min-height: 80px; }
 
-        .modal-actions {
+        .modal-footer {
+            margin-top: 25px;
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-            margin-top: 2rem;
         }
 
-        /* Import Area */
-        .import-area {
-            width: 100%;
-            height: 150px;
+        /* Export Text Area */
+        .export-area {
             font-family: monospace;
-            font-size: 0.85rem;
-            resize: vertical;
+            font-size: 12px;
+            min-height: 200px;
+            white-space: pre;
         }
 
-        /* Toast */
+        /* Toast Notification */
         .toast {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--surface-color);
-            border-left: 4px solid var(--primary);
-            padding: 1rem 1.5rem;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-card);
+            border-left: 4px solid var(--success);
+            padding: 15px 25px;
             border-radius: 8px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             transform: translateY(100px);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 2000;
+            z-index: 3000;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .toast.show { transform: translateY(0); }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
     </style>
 </head>
 <body>
-
+    
     <header>
-        <div class="brand">
-            <i class="fas fa-cubes"></i> Dailys Editor
-        </div>
-        <div class="controls">
-            <button onclick="openImportModal()">
-                <i class="fas fa-file-import"></i> Import / Load
-            </button>
-            <button onclick="addNewCategory()">
-                <i class="fas fa-plus"></i> New Category
-            </button>
-            <button class="primary" onclick="exportData()">
-                <i class="fas fa-download"></i> Export JSON
-            </button>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="favicon.svg" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTUtMTAtNXptMCA5bDQgMi00IDItNC0ybDQtMnp2N2w0LTJ2LTdsLTQgMnoiLz48L3N2Zz4='" alt="Dailys Icon">
+                    </div>
+                    <h1>Dailys <span style="font-size: 0.6em; color: var(--text-secondary); font-weight: 400;">Editor</span></h1>
+                </div>
+                
+                <div class="editor-toolbar">
+                    <button class="btn btn-secondary" onclick="openImportModal()">
+                        <i class="fas fa-file-import"></i> Load
+                    </button>
+                    <button class="btn btn-secondary" onclick="addNewCategory()">
+                        <i class="fas fa-folder-plus"></i> New Category
+                    </button>
+                    <button class="btn btn-primary" onclick="openExportModal()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main id="mainContent">
-        <div class="empty-state">
-            <h2>No Data Loaded</h2>
-            <p>Load the default URL or paste your JSON to begin.</p>
-            <br>
-            <button class="primary" style="margin: 0 auto;" onclick="loadDefault()">
-                Load Default URL
-            </button>
-        </div>
-    </main>
+    <div class="container">
+        <main class="main-content" id="editorContainer">
+            <div class="empty-state">
+                <div class="loading"></div>
+                <p style="margin-top: 15px">Initializing Editor...</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 <a href="#" target="_blank">PerianDevelopment</a>. Editor Mode.</p>
+        </footer>
+    </div>
 
     <div class="modal-overlay" id="categoryModal">
         <div class="modal">
@@ -334,26 +279,28 @@
             <input type="hidden" id="catIndex">
             
             <div class="form-group">
-                <label>ID (Unique Identifier)</label>
-                <input type="text" id="catId" placeholder="e.g., word-games">
+                <label class="form-label">Category ID (Unique)</label>
+                <input type="text" class="form-input" id="catId" placeholder="e.g. word-games">
             </div>
             <div class="form-group">
-                <label>Display Name</label>
-                <input type="text" id="catName" placeholder="e.g., Word Themed">
+                <label class="form-label">Display Name</label>
+                <input type="text" class="form-input" id="catName" placeholder="e.g. Word Themed">
             </div>
             <div class="form-group">
-                <label>Icon Class (FontAwesome)</label>
-                <input type="text" id="catIcon" placeholder="e.g., fas fa-font">
-                <small style="color:var(--text-muted); display:block; margin-top:5px">Preview: <i id="catIconPreview"></i></small>
+                <label class="form-label">FontAwesome Icon Class</label>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="text" class="form-input" id="catIcon" placeholder="e.g. fas fa-font">
+                    <i id="catIconPreview" class="fas fa-font" style="font-size:24px; color:var(--primary); width: 30px; text-align:center;"></i>
+                </div>
             </div>
             <div class="form-group">
-                <label>Description</label>
-                <textarea id="catDesc" rows="3" placeholder="Category description..."></textarea>
+                <label class="form-label">Description</label>
+                <textarea class="form-input" id="catDesc" placeholder="Short description..."></textarea>
             </div>
 
-            <div class="modal-actions">
-                <button onclick="closeModal('categoryModal')">Cancel</button>
-                <button class="primary" onclick="saveCategory()">Save Category</button>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('categoryModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveCategory()">Save</button>
             </div>
         </div>
     </div>
@@ -365,70 +312,97 @@
             <input type="hidden" id="gameIndex">
             
             <div class="form-group">
-                <label>ID</label>
-                <input type="text" id="gameId" placeholder="e.g., wordle">
+                <label class="form-label">Game ID</label>
+                <input type="text" class="form-input" id="gameId" placeholder="e.g. wordle">
             </div>
             <div class="form-group">
-                <label>Name</label>
-                <input type="text" id="gameName" placeholder="e.g., Wordle">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-input" id="gameName" placeholder="e.g. Wordle">
             </div>
             <div class="form-group">
-                <label>Game URL</label>
-                <input type="url" id="gameUrl" placeholder="https://...">
+                <label class="form-label">URL</label>
+                <input type="url" class="form-input" id="gameUrl" placeholder="https://...">
             </div>
             <div class="form-group">
-                <label>Favicon URL</label>
+                <label class="form-label">Favicon URL</label>
                 <div style="display:flex; gap:10px; align-items:center;">
-                    <input type="url" id="gameFavicon" placeholder="https://.../favicon.ico" style="flex:1">
-                    <img id="gameFaviconPreview" src="" style="width:32px; height:32px; border-radius:4px; background:#333; display:none;">
+                    <input type="url" class="form-input" id="gameFavicon" placeholder="https://...">
+                    <div class="game-favicon" style="margin:0; width:44px; height:44px;">
+                        <img id="gameFaviconPreview" src="" alt="" style="display:none">
+                    </div>
                 </div>
             </div>
 
-            <div class="modal-actions">
-                <button onclick="closeModal('gameModal')">Cancel</button>
-                <button class="primary" onclick="saveGame()">Save Game</button>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('gameModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveGame()">Save</button>
             </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="importModal">
         <div class="modal">
-            <h2>Import Data</h2>
+            <h2>Load Data</h2>
             <div class="form-group">
-                <label>Load from URL</label>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="importUrl" value="https://periandevelopment.github.io/Dailys/dailys.json">
-                    <button class="primary" onclick="loadFromUrlInput()">Fetch</button>
+                <label class="form-label">From URL</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" class="form-input" id="importUrl" value="https://periandevelopment.github.io/Dailys/dailys.json">
+                    <button class="btn btn-primary" onclick="loadFromUrlInput()">Fetch</button>
                 </div>
             </div>
-            <div style="text-align:center; margin: 1rem 0; color: var(--text-muted);">— OR —</div>
+            <div style="text-align:center; margin: 15px 0; color: var(--text-secondary)">- OR -</div>
             <div class="form-group">
-                <label>Paste JSON</label>
-                <textarea id="pasteJson" class="import-area" placeholder='{ "topics": [...] }'></textarea>
+                <label class="form-label">Paste JSON Content</label>
+                <textarea class="form-input export-area" id="pasteJson" placeholder='{ "topics": [...] }'></textarea>
             </div>
-            <div class="modal-actions">
-                <button onclick="closeModal('importModal')">Cancel</button>
-                <button class="primary" onclick="processPaste()">Load JSON</button>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('importModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="processPaste()">Parse JSON</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <h2>Export Data</h2>
+            <p style="color:var(--text-secondary); font-size:14px; margin-bottom:15px;">
+                Copy the text below or download the file to replace your current <code>dailys.json</code>.
+            </p>
+            <textarea class="form-input export-area" id="exportArea" readonly></textarea>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="copyToClipboard()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <button class="btn btn-primary" onclick="downloadFile()">
+                    <i class="fas fa-download"></i> Download .json
+                </button>
+                <button class="btn btn-secondary" onclick="closeModal('exportModal')">Close</button>
             </div>
         </div>
     </div>
 
     <div class="toast" id="toast">
-        <i class="fas fa-info-circle"></i>
-        <span id="toastMsg">Action Successful</span>
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Success</span>
     </div>
 
     <script>
-        // --- State Management ---
+        // --- State ---
         let appData = { topics: [] };
         const defaultUrl = "https://periandevelopment.github.io/Dailys/dailys.json";
+        
+        // --- Drag and Drop State ---
+        let dragSrcEl = null;
+        let dragType = null; // 'category' or 'game'
+        let dragSrcIndex = null;
+        let dragParentIndex = null; // for games
 
         // --- Init ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Attempt auto-load (might fail due to CORS depending on GitHub Pages config)
             loadDefault();
-
-            // Live Previews for Modals
+            
+            // Live Preview Listeners
             document.getElementById('catIcon').addEventListener('input', (e) => {
                 document.getElementById('catIconPreview').className = e.target.value;
             });
@@ -439,107 +413,189 @@
             });
         });
 
-        // --- Loading Data ---
+        // --- Data Loading ---
         async function loadDefault() {
             try {
-                await fetchAndLoad(defaultUrl);
+                const res = await fetch(defaultUrl);
+                if(res.ok) {
+                    appData = await res.json();
+                    render();
+                } else { throw new Error("Status " + res.status); }
             } catch (e) {
-                console.log("Auto-load failed (likely CORS), waiting for user interaction.");
+                console.log("Autoload failed, showing empty state.");
+                document.getElementById('editorContainer').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Could not auto-load</h2>
+                        <p>Browser security might be blocking the URL fetch. Please click "Load" to paste content manually.</p>
+                        <button class="btn btn-primary" style="margin: 20px auto" onclick="openImportModal()">Open Load Menu</button>
+                    </div>`;
             }
         }
 
         async function loadFromUrlInput() {
             const url = document.getElementById('importUrl').value;
-            await fetchAndLoad(url);
-            closeModal('importModal');
-        }
-
-        async function fetchAndLoad(url) {
             try {
                 const res = await fetch(url);
-                if(!res.ok) throw new Error("Network response was not ok");
-                const json = await res.json();
-                appData = json;
+                if(!res.ok) throw new Error("Fetch failed");
+                appData = await res.json();
                 render();
-                showToast("Data loaded successfully!");
-            } catch (err) {
-                alert("Failed to load URL. It might be a CORS issue. Try copying the JSON text and pasting it in the 'Paste JSON' box.");
-                console.error(err);
+                closeModal('importModal');
+                showToast("Loaded from URL");
+            } catch (e) {
+                alert("Failed to load. Try pasting the JSON manually.");
             }
         }
 
         function processPaste() {
-            const val = document.getElementById('pasteJson').value;
             try {
+                const val = document.getElementById('pasteJson').value;
                 appData = JSON.parse(val);
                 render();
                 closeModal('importModal');
-                showToast("JSON parsed successfully!");
+                showToast("JSON Parsed");
             } catch (e) {
-                alert("Invalid JSON format.");
+                alert("Invalid JSON format");
             }
         }
 
         // --- Rendering ---
         function render() {
-            const container = document.getElementById('mainContent');
-            
-            if(!appData.topics || appData.topics.length === 0) {
-                container.innerHTML = `<div class="empty-state"><h2>No Topics Found</h2><button class="primary" onclick="addNewCategory()">Create First Category</button></div>`;
+            const container = document.getElementById('editorContainer');
+            container.innerHTML = ''; // Clear
+
+            if (!appData.topics || appData.topics.length === 0) {
+                container.innerHTML = `<div class="empty-state"><p>No categories found.</p></div>`;
                 return;
             }
 
-            container.innerHTML = '<div class="grid" id="topicsGrid"></div>';
-            const grid = document.getElementById('topicsGrid');
-
             appData.topics.forEach((topic, tIndex) => {
-                const card = document.createElement('div');
-                card.className = 'category-card';
+                // Create Category Wrapper
+                const catWrapper = document.createElement('div');
+                catWrapper.className = 'category-wrapper';
                 
-                // Header
-                card.innerHTML = `
-                    <div class="cat-header">
-                        <div class="cat-info">
-                            <h3 class="cat-title"><i class="${topic.icon}"></i> ${escapeHtml(topic.name)}</h3>
-                            <p class="cat-desc">${escapeHtml(topic.description)}</p>
+                // Add Drag Attributes for Category
+                catWrapper.setAttribute('draggable', 'true');
+                catWrapper.addEventListener('dragstart', (e) => handleDragStart(e, 'category', tIndex));
+                catWrapper.addEventListener('dragover', handleDragOver);
+                catWrapper.addEventListener('drop', (e) => handleDrop(e, 'category', tIndex));
+                catWrapper.addEventListener('dragend', handleDragEnd);
+
+                // Category Header HTML
+                let headerHtml = `
+                    <div class="cat-header-edit">
+                        <div class="cat-title-group">
+                            <i class="fas fa-grip-vertical drag-handle" title="Drag to reorder category"></i>
+                            <div class="section-icon"><i class="${topic.icon}"></i></div>
+                            <div>
+                                <div class="cat-title-text">${escapeHtml(topic.name)}</div>
+                                <div class="cat-desc-text">${escapeHtml(topic.description || '')}</div>
+                            </div>
                         </div>
-                        <div class="cat-actions">
-                            <button class="icon-btn" onclick="editCategory(${tIndex})" title="Edit Category"><i class="fas fa-pen"></i></button>
-                            <button class="icon-btn delete" onclick="deleteCategory(${tIndex})" title="Delete Category"><i class="fas fa-trash"></i></button>
+                        <div class="action-group">
+                            <button class="icon-btn" onclick="editCategory(${tIndex})"><i class="fas fa-pen"></i></button>
+                            <button class="icon-btn delete" onclick="deleteCategory(${tIndex})"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <div class="games-list" id="games-${tIndex}"></div>
-                    <button class="add-game-btn" onclick="addGame(${tIndex})">
-                        <i class="fas fa-plus-circle"></i> Add Game
-                    </button>
+                    <div class="games-grid" style="padding: 20px; margin-bottom: 0;" id="games-grid-${tIndex}">
+                        </div>
+                    <div class="add-game-area">
+                        <button class="add-game-btn" onclick="addGame(${tIndex})">
+                            <i class="fas fa-plus"></i> Add Game to "${escapeHtml(topic.name)}"
+                        </button>
+                    </div>
                 `;
+                catWrapper.innerHTML = headerHtml;
 
-                grid.appendChild(card);
-
-                // Games
-                const gamesContainer = card.querySelector(`#games-${tIndex}`);
-                if(topic.games) {
+                // Inject Games
+                const gamesGrid = catWrapper.querySelector(`#games-grid-${tIndex}`);
+                if (topic.games) {
                     topic.games.forEach((game, gIndex) => {
-                        const gameEl = document.createElement('div');
-                        gameEl.className = 'game-item';
-                        gameEl.innerHTML = `
-                            <img src="${game.favicon}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzMzMyI+PHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiAvPjwvc3ZnPg=='" class="game-favicon">
-                            <div class="game-details">
-                                <div class="game-name">${escapeHtml(game.name)}</div>
-                                <div class="game-url">${escapeHtml(game.url)}</div>
-                            </div>
-                            <div class="cat-actions">
-                                <button class="icon-btn" onclick="editGame(${tIndex}, ${gIndex})"><i class="fas fa-pen"></i></button>
-                                <button class="icon-btn delete" onclick="deleteGame(${tIndex}, ${gIndex})"><i class="fas fa-trash"></i></button>
+                        const card = document.createElement('div');
+                        card.className = 'game-card';
+                        
+                        // Add Drag Attributes for Game
+                        card.setAttribute('draggable', 'true');
+                        card.addEventListener('dragstart', (e) => handleDragStart(e, 'game', gIndex, tIndex));
+                        card.addEventListener('dragover', handleDragOver);
+                        card.addEventListener('drop', (e) => handleDrop(e, 'game', gIndex, tIndex));
+                        card.addEventListener('dragend', handleDragEnd);
+
+                        card.innerHTML = `
+                            <div class="game-content">
+                                <div class="game-info">
+                                    <i class="fas fa-grip-vertical drag-handle" title="Drag to reorder game"></i>
+                                    <div class="game-favicon">
+                                        <img src="${game.favicon}" onerror="this.style.display='none'">
+                                    </div>
+                                    <div class="game-title">${escapeHtml(game.name)}</div>
+                                </div>
+                                <div class="game-actions">
+                                    <button class="icon-btn" onclick="editGame(${tIndex}, ${gIndex})"><i class="fas fa-pen"></i></button>
+                                    <button class="icon-btn delete" onclick="deleteGame(${tIndex}, ${gIndex})"><i class="fas fa-trash"></i></button>
+                                </div>
                             </div>
                         `;
-                        gamesContainer.appendChild(gameEl);
+                        gamesGrid.appendChild(card);
                     });
                 }
+
+                container.appendChild(catWrapper);
             });
         }
 
-        // --- Logic: Categories ---
+        // --- Drag and Drop Logic ---
+        function handleDragStart(e, type, index, parentIndex = null) {
+            dragSrcEl = e.target;
+            dragType = type;
+            dragSrcIndex = index;
+            dragParentIndex = parentIndex;
+            e.target.style.opacity = '0.4';
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDrop(e, type, targetIndex, targetParentIndex = null) {
+            e.stopPropagation();
+            
+            // Only allow dropping if types match
+            if (dragType !== type) return false;
+
+            // If dragging a game, ensure it's within the same category (Simplification for vanilla JS)
+            if (type === 'game' && dragParentIndex !== targetParentIndex) {
+                 // Optional: Allow moving games between categories
+                 // For now, let's keep it simple: only reorder within category
+                 showToast("Can only reorder within same category");
+                 return false;
+            }
+
+            if (dragSrcIndex !== targetIndex) {
+                if (type === 'category') {
+                    // Swap Categories
+                    const item = appData.topics.splice(dragSrcIndex, 1)[0];
+                    appData.topics.splice(targetIndex, 0, item);
+                } else if (type === 'game') {
+                    // Swap Games
+                    const gamesList = appData.topics[dragParentIndex].games;
+                    const item = gamesList.splice(dragSrcIndex, 1)[0];
+                    gamesList.splice(targetIndex, 0, item);
+                }
+                render();
+                showToast("Reordered!");
+            }
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            this.style.opacity = '1';
+        }
+
+        // --- Categories Logic ---
         function addNewCategory() {
             document.getElementById('catModalTitle').innerText = "New Category";
             document.getElementById('catIndex').value = "-1";
@@ -552,82 +608,73 @@
         }
 
         function editCategory(index) {
-            const topic = appData.topics[index];
+            const t = appData.topics[index];
             document.getElementById('catModalTitle').innerText = "Edit Category";
             document.getElementById('catIndex').value = index;
-            document.getElementById('catId').value = topic.id;
-            document.getElementById('catName').value = topic.name;
-            document.getElementById('catIcon').value = topic.icon;
-            document.getElementById('catIconPreview').className = topic.icon;
-            document.getElementById('catDesc').value = topic.description;
+            document.getElementById('catId').value = t.id;
+            document.getElementById('catName').value = t.name;
+            document.getElementById('catIcon').value = t.icon;
+            document.getElementById('catIconPreview').className = t.icon;
+            document.getElementById('catDesc').value = t.description;
             openModal('categoryModal');
         }
 
         function saveCategory() {
-            const index = parseInt(document.getElementById('catIndex').value);
-            const newTopic = {
+            const idx = parseInt(document.getElementById('catIndex').value);
+            const data = {
                 id: document.getElementById('catId').value,
                 name: document.getElementById('catName').value,
                 icon: document.getElementById('catIcon').value,
                 description: document.getElementById('catDesc').value,
-                games: index >= 0 ? appData.topics[index].games : []
+                games: idx >= 0 ? appData.topics[idx].games : []
             };
 
-            if(index === -1) {
-                appData.topics.push(newTopic);
-            } else {
-                appData.topics[index] = newTopic;
-            }
+            if(idx === -1) appData.topics.push(data);
+            else appData.topics[idx] = data;
+
             closeModal('categoryModal');
             render();
             showToast("Category Saved");
         }
 
         function deleteCategory(index) {
-            if(confirm("Are you sure you want to delete this category and all its games?")) {
+            if(confirm("Delete category and all its games?")) {
                 appData.topics.splice(index, 1);
                 render();
             }
         }
 
-        // --- Logic: Games ---
-        function addGame(catIndex) {
+        // --- Games Logic ---
+        function addGame(catIdx) {
             document.getElementById('gameModalTitle').innerText = "New Game";
-            document.getElementById('gameCatIndex').value = catIndex;
+            document.getElementById('gameCatIndex').value = catIdx;
             document.getElementById('gameIndex').value = "-1";
-            
-            // Clear inputs
             document.getElementById('gameId').value = "";
             document.getElementById('gameName').value = "";
             document.getElementById('gameUrl').value = "";
             document.getElementById('gameFavicon').value = "";
             document.getElementById('gameFaviconPreview').style.display = 'none';
-            
             openModal('gameModal');
         }
 
-        function editGame(catIndex, gameIndex) {
-            const game = appData.topics[catIndex].games[gameIndex];
+        function editGame(catIdx, gameIdx) {
+            const g = appData.topics[catIdx].games[gameIdx];
             document.getElementById('gameModalTitle').innerText = "Edit Game";
-            document.getElementById('gameCatIndex').value = catIndex;
-            document.getElementById('gameIndex').value = gameIndex;
-            
-            document.getElementById('gameId').value = game.id;
-            document.getElementById('gameName').value = game.name;
-            document.getElementById('gameUrl').value = game.url;
-            document.getElementById('gameFavicon').value = game.favicon;
-            
+            document.getElementById('gameCatIndex').value = catIdx;
+            document.getElementById('gameIndex').value = gameIdx;
+            document.getElementById('gameId').value = g.id;
+            document.getElementById('gameName').value = g.name;
+            document.getElementById('gameUrl').value = g.url;
+            document.getElementById('gameFavicon').value = g.favicon;
             const img = document.getElementById('gameFaviconPreview');
-            img.src = game.favicon;
+            img.src = g.favicon;
             img.style.display = 'block';
-
             openModal('gameModal');
         }
 
         function saveGame() {
-            const catIndex = parseInt(document.getElementById('gameCatIndex').value);
-            const gameIndex = parseInt(document.getElementById('gameIndex').value);
-            
+            const cIdx = parseInt(document.getElementById('gameCatIndex').value);
+            const gIdx = parseInt(document.getElementById('gameIndex').value);
             const newGame = {
                 id: document.getElementById('gameId').value,
                 name: document.getElementById('gameName').value,
@@ -635,70 +682,70 @@
                 favicon: document.getElementById('gameFavicon').value
             };
 
-            if(gameIndex === -1) {
-                if(!appData.topics[catIndex].games) appData.topics[catIndex].games = [];
-                appData.topics[catIndex].games.push(newGame);
-            } else {
-                appData.topics[catIndex].games[gameIndex] = newGame;
-            }
+            if(!appData.topics[cIdx].games) appData.topics[cIdx].games = [];
+            
+            if(gIdx === -1) appData.topics[cIdx].games.push(newGame);
+            else appData.topics[cIdx].games[gIdx] = newGame;
 
             closeModal('gameModal');
             render();
             showToast("Game Saved");
         }
 
-        function deleteGame(catIndex, gameIndex) {
-            if(confirm("Remove this game?")) {
-                appData.topics[catIndex].games.splice(gameIndex, 1);
+        function deleteGame(cIdx, gIdx) {
+            if(confirm("Delete this game?")) {
+                appData.topics[cIdx].games.splice(gIdx, 1);
                 render();
             }
         }
 
-        // --- Export ---
-        function exportData() {
+        // --- Export Logic ---
+        function openExportModal() {
+            const jsonStr = JSON.stringify(appData, null, 2);
+            document.getElementById('exportArea').value = jsonStr;
+            openModal('exportModal');
+        }
+
+        function copyToClipboard() {
+            const txt = document.getElementById('exportArea');
+            txt.select();
+            document.execCommand('copy'); // Fallback for older support, navigator.clipboard preferred but requires https context often
+            showToast("Copied to Clipboard!");
+        }
+
+        function downloadFile() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "dailys.json");
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
-            showToast("JSON file exported!");
+            const dlNode = document.createElement('a');
+            dlNode.setAttribute("href", dataStr);
+            dlNode.setAttribute("download", "dailys.json");
+            document.body.appendChild(dlNode);
+            dlNode.click();
+            dlNode.remove();
         }
 
-        // --- Utils ---
-        function openImportModal() { openModal('importModal'); }
-        
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
+        // --- Helpers ---
+        function openModal(id) { 
+            document.getElementById(id).classList.add('active'); 
         }
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
         }
-        
-        // Close modal on outside click
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if(e.target === overlay) closeModal(overlay.id);
-            });
-        });
-
-        function escapeHtml(text) {
-            if(!text) return "";
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
         function showToast(msg) {
             const t = document.getElementById('toast');
             document.getElementById('toastMsg').innerText = msg;
             t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3000);
         }
+        function escapeHtml(text) {
+            if (!text) return "";
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+        
+        // Modal Outside Click
+        document.querySelectorAll('.modal-overlay').forEach(el => {
+            el.addEventListener('click', e => { if(e.target===el) closeModal(el.id); });
+        });
+
     </script>
 </body>
 </html>
