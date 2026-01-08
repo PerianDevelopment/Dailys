@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* Toolbar adjustments */
+        /* --- Editor Specific Overrides & Additions --- */
+        
         .editor-toolbar {
             display: flex;
             gap: 10px;
@@ -30,19 +31,38 @@
             text-decoration: none;
         }
 
-        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
         .btn-primary:hover { background: var(--primary-dark); }
-        .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
         .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--text-secondary); }
 
-        /* Drag & Drop Styles */
+        /* Drag and Drop Visuals */
+        .draggable-source {
+            opacity: 0.4;
+            border: 2px dashed var(--primary);
+        }
+        .drag-handle {
+            cursor: grab;
+            color: var(--text-secondary);
+            padding: 5px;
+            margin-right: 5px;
+        }
+        .drag-handle:active { cursor: grabbing; color: var(--primary); }
+
         .category-wrapper {
             background: var(--bg-card);
             border-radius: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            transition: transform 0.2s ease;
         }
 
         .cat-header-edit {
@@ -52,66 +72,158 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.03);
             border-bottom: 1px solid var(--border-color);
-            cursor: move; /* Category handle */
         }
 
-        .cat-title-group { display: flex; align-items: center; gap: 10px; pointer-events: none; }
-        .cat-title-text { font-size: 18px; font-weight: 600; color: var(--text-primary); }
-        .cat-desc-text { font-size: 13px; color: var(--text-secondary); margin-left: 10px; }
+        .cat-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cat-title-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .cat-desc-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-left: 10px;
+        }
 
-        .action-group { display: flex; gap: 8px; pointer-events: auto; }
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
 
         .icon-btn {
-            background: transparent; border: none; color: var(--text-secondary);
-            cursor: pointer; padding: 6px; border-radius: 4px; transition: var(--transition);
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: var(--transition);
         }
         .icon-btn:hover { color: var(--primary); background: rgba(255,255,255,0.05); }
         .icon-btn.delete:hover { color: #ff4444; }
 
-        .game-card { height: auto; min-height: 80px; cursor: move; }
-        .game-card.dragging { opacity: 0.5; border: 1px dashed var(--primary); }
-        .category-wrapper.dragging { opacity: 0.5; border: 2px dashed var(--primary); }
-
-        .add-game-area { padding: 15px 20px; border-top: 1px solid var(--border-color); }
-        .add-game-btn {
-            width: 100%; padding: 12px; background: transparent;
-            border: 2px dashed var(--border-color); border-radius: 8px;
-            color: var(--text-secondary); cursor: pointer; transition: var(--transition);
+        .game-card {
+            height: auto; 
+            min-height: 80px;
         }
-        .add-game-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 56, 46, 0.05); }
+        
+        .game-actions {
+            display: flex;
+            gap: 5px;
+            margin-left: 10px;
+        }
 
-        /* Modal Styles */
+        .add-game-area {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .add-game-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .add-game-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(255, 56, 46, 0.05);
+        }
+
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
-            z-index: 2000; display: none; justify-content: center; align-items: center;
-            opacity: 0; transition: opacity 0.3s ease;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
+
         .modal {
-            background: var(--bg-card); border: 1px solid var(--border-color);
-            padding: 30px; border-radius: 16px; width: 90%; max-width: 500px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(20px); transition: transform 0.3s ease;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
         }
         .modal-overlay.active .modal { transform: translateY(0); }
+
+        .modal h2 { margin-bottom: 20px; color: var(--primary); }
+
         .form-group { margin-bottom: 15px; }
         .form-label { display: block; color: var(--text-secondary); margin-bottom: 8px; font-size: 14px; }
+        
         .form-input {
-            width: 100%; padding: 12px 20px; border-radius: 8px; border: 2px solid var(--border-color);
-            background: var(--bg-dark); color: var(--text-primary); font-size: 14px; outline: none; transition: var(--transition);
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
         }
         .form-input:focus { border-color: var(--primary); }
-        .export-area { font-family: monospace; font-size: 12px; min-height: 200px; white-space: pre; }
+        textarea.form-input { resize: vertical; min-height: 80px; }
+
+        .modal-footer {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .export-area {
+            font-family: monospace;
+            font-size: 12px;
+            min-height: 200px;
+            white-space: pre;
+        }
 
         .toast {
-            position: fixed; bottom: 30px; right: 30px; background: var(--bg-card);
-            border-left: 4px solid var(--success); padding: 15px 25px; border-radius: 8px;
-            transform: translateY(100px); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 3000; font-weight: 600; display: flex; align-items: center; gap: 10px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-card);
+            border-left: 4px solid var(--success);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transform: translateY(100px);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 3000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .toast.show { transform: translateY(0); }
-        
-        .logo-link { text-decoration: none; display: flex; align-items: center; gap: 12px; }
+
+        /* Clean Logo Link Styling */
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
     </style>
 </head>
 <body>
@@ -124,7 +236,7 @@
                         <div class="logo-icon">
                             <img src="favicon.svg" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTUtMTAtNXptMCA5bDQgMi00IDItNC0ybDQtMnp2N2w0LTJ2LTdsLTQgMnoiLz48L3N2Zz4='" alt="Dailys Icon">
                         </div>
-                        <h1>Dailys <span style="font-size: 0.5em; vertical-align: middle; opacity: 0.7;">EDITOR</span></h1>
+                        <h1>Dailys <span style="font-size: 0.6em; color: var(--text-secondary); font-weight: 400;">Editor</span></h1>
                     </div>
                 </a>
                 
@@ -133,7 +245,7 @@
                         <i class="fas fa-folder-plus"></i> New Category
                     </button>
                     <button class="btn btn-primary" onclick="openExportModal()">
-                        <i class="fas fa-download"></i> Export JSON
+                        <i class="fas fa-download"></i> Export
                     </button>
                 </div>
             </div>
@@ -144,9 +256,10 @@
         <main class="main-content" id="editorContainer">
             <div class="empty-state">
                 <div class="loading"></div>
-                <p style="margin-top: 15px">Loading your dailys...</p>
+                <p style="margin-top: 15px">Initializing Editor...</p>
             </div>
         </main>
+
         <footer>
             <p>© 2025 <a href="https://periandevelopment.github.io/" target="_blank">PerianDevelopment</a>. Editor Mode.</p>
         </footer>
@@ -154,12 +267,29 @@
 
     <div class="modal-overlay" id="categoryModal">
         <div class="modal">
-            <h2 id="catModalTitle">Category</h2>
+            <h2 id="catModalTitle">Edit Category</h2>
             <input type="hidden" id="catIndex">
-            <div class="form-group"><label class="form-label">Category ID</label><input type="text" class="form-input" id="catId"></div>
-            <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" id="catName"></div>
-            <div class="form-group"><label class="form-label">Icon Class</label><input type="text" class="form-input" id="catIcon"></div>
-            <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" id="catDesc"></textarea></div>
+            
+            <div class="form-group">
+                <label class="form-label">Category ID (Unique)</label>
+                <input type="text" class="form-input" id="catId" placeholder="e.g. word-games">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Display Name</label>
+                <input type="text" class="form-input" id="catName" placeholder="e.g. Word Themed">
+            </div>
+            <div class="form-group">
+                <label class="form-label">FontAwesome Icon Class</label>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="text" class="form-input" id="catIcon" placeholder="e.g. fas fa-font">
+                    <i id="catIconPreview" class="fas fa-font" style="font-size:24px; color:var(--primary); width: 30px; text-align:center;"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-input" id="catDesc" placeholder="Short description..."></textarea>
+            </div>
+
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('categoryModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="saveCategory()">Save</button>
@@ -169,45 +299,141 @@
 
     <div class="modal-overlay" id="gameModal">
         <div class="modal">
-            <h2 id="gameModalTitle">Daily</h2>
-            <input type="hidden" id="gameCatIndex"><input type="hidden" id="gameIndex">
-            <div class="form-group"><label class="form-label">Daily ID</label><input type="text" class="form-input" id="gameId"></div>
-            <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" id="gameName"></div>
-            <div class="form-group"><label class="form-label">URL</label><input type="url" class="form-input" id="gameUrl"></div>
-            <div class="form-group"><label class="form-label">Favicon URL</label><input type="url" class="form-input" id="gameFavicon"></div>
+            <h2 id="gameModalTitle">Edit Daily</h2>
+            <input type="hidden" id="gameCatIndex">
+            <input type="hidden" id="gameIndex">
+            
+            <div class="form-group">
+                <label class="form-label">Daily ID</label>
+                <input type="text" class="form-input" id="gameId" placeholder="e.g. wordle">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-input" id="gameName" placeholder="e.g. Wordle">
+            </div>
+            <div class="form-group">
+                <label class="form-label">URL</label>
+                <input type="url" class="form-input" id="gameUrl" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Favicon URL</label>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <input type="url" class="form-input" id="gameFavicon" placeholder="https://...">
+                    <div class="game-favicon" style="margin:0; width:44px; height:44px;">
+                        <img id="gameFaviconPreview" src="" alt="" style="display:none">
+                    </div>
+                </div>
+            </div>
+
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('gameModal')">Cancel</button>
-                <button class="btn btn-primary" onclick="saveGame()">Save Daily</button>
+                <button class="btn btn-primary" onclick="saveGame()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="importModal">
+        <div class="modal">
+            <h2>Load Data</h2>
+            <div class="form-group">
+                <label class="form-label">From URL</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" class="form-input" id="importUrl" value="https://periandevelopment.github.io/Dailys/dailys.json">
+                    <button class="btn btn-primary" onclick="loadFromUrlInput()">Fetch</button>
+                </div>
+            </div>
+            <div style="text-align:center; margin: 15px 0; color: var(--text-secondary)">- OR -</div>
+            <div class="form-group">
+                <label class="form-label">Paste JSON Content</label>
+                <textarea class="form-input export-area" id="pasteJson" placeholder='{ "topics": [...] }'></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('importModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="processPaste()">Parse JSON</button>
             </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="exportModal">
         <div class="modal">
-            <h2>Export JSON</h2>
+            <h2>Export Data</h2>
+            <p style="color:var(--text-secondary); font-size:14px; margin-bottom:15px;">
+                Copy the text below or download the file to replace your current <code>dailys.json</code>.
+            </p>
             <textarea class="form-input export-area" id="exportArea" readonly></textarea>
+            
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="copyToClipboard()">Copy Text</button>
-                <button class="btn btn-primary" onclick="downloadFile()">Download File</button>
+                <button class="btn btn-secondary" onclick="copyToClipboard()">
+                    <i class="fas fa-copy"></i> Copy
+                </button>
+                <button class="btn btn-primary" onclick="downloadFile()">
+                    <i class="fas fa-download"></i> Download .json
+                </button>
                 <button class="btn btn-secondary" onclick="closeModal('exportModal')">Close</button>
             </div>
         </div>
     </div>
 
-    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Success</span>
+    </div>
 
     <script>
         let appData = { topics: [] };
-        const dataUrl = "https://periandevelopment.github.io/Dailys/dailys.json";
+        const defaultUrl = "https://periandevelopment.github.io/Dailys/dailys.json";
+        
+        let dragSrcIndex = null;
+        let dragParentIndex = null;
+        let dragType = null;
 
-        document.addEventListener('DOMContentLoaded', loadData);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDefault();
+            document.getElementById('catIcon').addEventListener('input', (e) => {
+                document.getElementById('catIconPreview').className = e.target.value;
+            });
+            document.getElementById('gameFavicon').addEventListener('input', (e) => {
+                const img = document.getElementById('gameFaviconPreview');
+                img.src = e.target.value;
+                img.style.display = e.target.value ? 'block' : 'none';
+            });
+        });
 
-        async function loadData() {
+        async function loadDefault() {
             try {
-                const res = await fetch(dataUrl);
-                appData = res.ok ? await res.json() : { topics: [] };
+                const res = await fetch(defaultUrl);
+                if(res.ok) {
+                    appData = await res.json();
+                    render();
+                } else { throw new Error("Status " + res.status); }
+            } catch (e) {
+                document.getElementById('editorContainer').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h2>Load Data to Begin</h2>
+                        <button class="btn btn-primary" style="margin: 20px auto" onclick="openModal('importModal')">Import JSON</button>
+                    </div>`;
+            }
+        }
+
+        async function loadFromUrlInput() {
+            const url = document.getElementById('importUrl').value;
+            try {
+                const res = await fetch(url);
+                appData = await res.json();
                 render();
-            } catch (e) { render(); }
+                closeModal('importModal');
+                showToast("Loaded from URL");
+            } catch (e) { alert("Failed to load URL."); }
+        }
+
+        function processPaste() {
+            try {
+                appData = JSON.parse(document.getElementById('pasteJson').value);
+                render();
+                closeModal('importModal');
+                showToast("JSON Parsed");
+            } catch (e) { alert("Invalid JSON"); }
         }
 
         function render() {
@@ -215,18 +441,32 @@
             container.innerHTML = '';
 
             appData.topics.forEach((topic, tIndex) => {
-                const catDiv = document.createElement('div');
-                catDiv.className = 'category-wrapper';
-                catDiv.draggable = true;
-                catDiv.dataset.index = tIndex;
+                const catWrapper = document.createElement('div');
+                catWrapper.className = 'category-wrapper';
+                catWrapper.setAttribute('draggable', 'true');
+                
+                catWrapper.addEventListener('dragstart', (e) => {
+                    dragType = 'category';
+                    dragSrcIndex = tIndex;
+                    e.stopPropagation();
+                });
+                catWrapper.addEventListener('dragover', (e) => e.preventDefault());
+                catWrapper.addEventListener('drop', (e) => {
+                    e.stopPropagation();
+                    if(dragType !== 'category') return;
+                    const item = appData.topics.splice(dragSrcIndex, 1)[0];
+                    appData.topics.splice(tIndex, 0, item);
+                    render();
+                });
 
-                catDiv.innerHTML = `
+                catWrapper.innerHTML = `
                     <div class="cat-header-edit">
                         <div class="cat-title-group">
+                            <i class="fas fa-grip-vertical drag-handle"></i>
                             <div class="section-icon"><i class="${topic.icon}"></i></div>
                             <div>
-                                <div class="cat-title-text">${topic.name}</div>
-                                <div class="cat-desc-text">${topic.description || ''}</div>
+                                <div class="cat-title-text">${escapeHtml(topic.name)}</div>
+                                <div class="cat-desc-text">${escapeHtml(topic.description || '')}</div>
                             </div>
                         </div>
                         <div class="action-group">
@@ -234,127 +474,178 @@
                             <button class="icon-btn delete" onclick="deleteCategory(${tIndex})"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-                    <div class="games-grid" style="padding: 20px; margin-bottom: 0;" data-cat-index="${tIndex}"></div>
+                    <div class="games-grid" style="padding: 20px; margin-bottom: 0;"></div>
                     <div class="add-game-area">
-                        <button class="add-game-btn" onclick="addGame(${tIndex})"><i class="fas fa-plus"></i> Add Daily</button>
+                        <button class="add-game-btn" onclick="addGame(${tIndex})">
+                            <i class="fas fa-plus"></i> Add Daily to "${escapeHtml(topic.name)}"
+                        </button>
                     </div>
                 `;
 
-                // Dragging categories
-                catDiv.addEventListener('dragstart', e => {
-                    if (e.target.classList.contains('category-wrapper')) {
-                        e.target.classList.add('dragging');
-                        e.dataTransfer.setData('text/plain', `cat:${tIndex}`);
-                    }
-                });
-                catDiv.addEventListener('dragend', e => e.target.classList.remove('dragging'));
-
-                const grid = catDiv.querySelector('.games-grid');
-                (topic.games || []).forEach((game, gIndex) => {
-                    const gameCard = document.createElement('div');
-                    gameCard.className = 'game-card';
-                    gameCard.draggable = true;
-                    gameCard.innerHTML = `
-                        <div class="game-content">
-                            <div class="game-info">
-                                <div class="game-favicon"><img src="${game.favicon}" onerror="this.style.display='none'"></div>
-                                <div class="game-title">${game.name}</div>
-                            </div>
-                            <div class="action-group">
-                                <button class="icon-btn" onclick="editGame(${tIndex}, ${gIndex})"><i class="fas fa-pen"></i></button>
-                                <button class="icon-btn delete" onclick="deleteGame(${tIndex}, ${gIndex})"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    // Dragging Dailys within category
-                    gameCard.addEventListener('dragstart', e => {
-                        e.stopPropagation();
-                        gameCard.classList.add('dragging');
-                        e.dataTransfer.setData('text/plain', `game:${tIndex}:${gIndex}`);
-                    });
-                    gameCard.addEventListener('dragend', () => gameCard.classList.remove('dragging'));
-
-                    grid.appendChild(gameCard);
-                });
-
-                // Drop logic for both categories and dailys
-                catDiv.addEventListener('dragover', e => e.preventDefault());
-                catDiv.addEventListener('drop', e => {
-                    e.preventDefault();
-                    const data = e.dataTransfer.getData('text/plain').split(':');
-                    const type = data[0];
-                    
-                    if (type === 'cat') {
-                        const fromIdx = parseInt(data[1]);
-                        const toIdx = tIndex;
-                        const item = appData.topics.splice(fromIdx, 1)[0];
-                        appData.topics.splice(toIdx, 0, item);
-                        render();
-                    } else if (type === 'game') {
-                        const fromCat = parseInt(data[1]);
-                        const fromGame = parseInt(data[2]);
-                        // Only reorder if in same category for stability
-                        if (fromCat === tIndex) {
-                            const target = e.target.closest('.game-card');
-                            const targetIdx = target ? Array.from(grid.children).indexOf(target) : topic.games.length;
-                            const item = appData.topics[fromCat].games.splice(fromGame, 1)[0];
-                            appData.topics[fromCat].games.splice(targetIdx, 0, item);
+                const gamesGrid = catWrapper.querySelector('.games-grid');
+                if (topic.games) {
+                    topic.games.forEach((game, gIndex) => {
+                        const card = document.createElement('div');
+                        card.className = 'game-card';
+                        card.setAttribute('draggable', 'true');
+                        
+                        card.addEventListener('dragstart', (e) => {
+                            dragType = 'game';
+                            dragSrcIndex = gIndex;
+                            dragParentIndex = tIndex;
+                            e.stopPropagation();
+                        });
+                        card.addEventListener('dragover', (e) => e.preventDefault());
+                        card.addEventListener('drop', (e) => {
+                            e.stopPropagation();
+                            if(dragType !== 'game' || dragParentIndex !== tIndex) return;
+                            const item = appData.topics[tIndex].games.splice(dragSrcIndex, 1)[0];
+                            appData.topics[tIndex].games.splice(gIndex, 0, item);
                             render();
-                        }
-                    }
-                });
+                        });
 
-                container.appendChild(catDiv);
+                        card.innerHTML = `
+                            <div class="game-content">
+                                <div class="game-info">
+                                    <i class="fas fa-grip-vertical drag-handle"></i>
+                                    <div class="game-favicon">
+                                        <img src="${game.favicon}" onerror="this.style.display='none'">
+                                    </div>
+                                    <div class="game-title">${escapeHtml(game.name)}</div>
+                                </div>
+                                <div class="game-actions">
+                                    <button class="icon-btn" onclick="editGame(${tIndex}, ${gIndex})"><i class="fas fa-pen"></i></button>
+                                    <button class="icon-btn delete" onclick="deleteGame(${tIndex}, ${gIndex})"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        `;
+                        gamesGrid.appendChild(card);
+                    });
+                }
+                container.appendChild(catWrapper);
             });
         }
 
-        // Logic Functions
-        function addNewCategory() { openModal('categoryModal'); document.getElementById('catIndex').value = "-1"; }
-        function editCategory(i) {
-            const t = appData.topics[i];
-            document.getElementById('catIndex').value = i;
+        function addNewCategory() {
+            document.getElementById('catModalTitle').innerText = "New Category";
+            document.getElementById('catIndex').value = "-1";
+            document.getElementById('catId').value = "";
+            document.getElementById('catName').value = "";
+            document.getElementById('catIcon').value = "fas fa-gamepad";
+            document.getElementById('catDesc').value = "";
+            openModal('categoryModal');
+        }
+
+        function editCategory(index) {
+            const t = appData.topics[index];
+            document.getElementById('catModalTitle').innerText = "Edit Category";
+            document.getElementById('catIndex').value = index;
             document.getElementById('catId').value = t.id;
             document.getElementById('catName').value = t.name;
             document.getElementById('catIcon').value = t.icon;
             document.getElementById('catDesc').value = t.description;
             openModal('categoryModal');
         }
-        function saveCategory() {
-            const i = parseInt(document.getElementById('catIndex').value);
-            const d = { id: document.getElementById('catId').value, name: document.getElementById('catName').value, icon: document.getElementById('catIcon').value, description: document.getElementById('catDesc').value, games: i===-1?[]:appData.topics[i].games };
-            if(i===-1) appData.topics.push(d); else appData.topics[i] = d;
-            closeModal('categoryModal'); render();
-        }
-        function deleteCategory(i) { if(confirm("Delete Category?")) { appData.topics.splice(i,1); render(); } }
 
-        function addGame(ci) { openModal('gameModal'); document.getElementById('gameCatIndex').value = ci; document.getElementById('gameIndex').value = "-1"; }
-        function editGame(ci, gi) {
-            const g = appData.topics[ci].games[gi];
-            document.getElementById('gameCatIndex').value = ci; document.getElementById('gameIndex').value = gi;
-            document.getElementById('gameId').value = g.id; document.getElementById('gameName').value = g.name;
-            document.getElementById('gameUrl').value = g.url; document.getElementById('gameFavicon').value = g.favicon;
+        function saveCategory() {
+            const idx = parseInt(document.getElementById('catIndex').value);
+            const data = {
+                id: document.getElementById('catId').value,
+                name: document.getElementById('catName').value,
+                icon: document.getElementById('catIcon').value,
+                description: document.getElementById('catDesc').value,
+                games: idx >= 0 ? (appData.topics[idx].games || []) : []
+            };
+            if(idx === -1) appData.topics.push(data);
+            else appData.topics[idx] = data;
+            closeModal('categoryModal');
+            render();
+            showToast("Category Saved");
+        }
+
+        function deleteCategory(index) {
+            if(confirm("Delete category?")) { appData.topics.splice(index, 1); render(); }
+        }
+
+        function addGame(catIdx) {
+            document.getElementById('gameModalTitle').innerText = "New Daily";
+            document.getElementById('gameCatIndex').value = catIdx;
+            document.getElementById('gameIndex').value = "-1";
+            document.getElementById('gameId').value = "";
+            document.getElementById('gameName').value = "";
+            document.getElementById('gameUrl').value = "";
+            document.getElementById('gameFavicon').value = "";
             openModal('gameModal');
         }
-        function saveGame() {
-            const ci = document.getElementById('gameCatIndex').value, gi = parseInt(document.getElementById('gameIndex').value);
-            const d = { id: document.getElementById('gameId').value, name: document.getElementById('gameName').value, url: document.getElementById('gameUrl').value, favicon: document.getElementById('gameFavicon').value };
-            if(gi===-1) appData.topics[ci].games.push(d); else appData.topics[ci].games[gi] = d;
-            closeModal('gameModal'); render();
-        }
-        function deleteGame(ci, gi) { appData.topics[ci].games.splice(gi,1); render(); }
 
-        function openExportModal() { document.getElementById('exportArea').value = JSON.stringify(appData, null, 2); openModal('exportModal'); }
-        function copyToClipboard() { navigator.clipboard.writeText(document.getElementById('exportArea').value); showToast("Copied!"); }
+        function editGame(catIdx, gameIdx) {
+            const g = appData.topics[catIdx].games[gameIdx];
+            document.getElementById('gameModalTitle').innerText = "Edit Daily";
+            document.getElementById('gameCatIndex').value = catIdx;
+            document.getElementById('gameIndex').value = gameIdx;
+            document.getElementById('gameId').value = g.id;
+            document.getElementById('gameName').value = g.name;
+            document.getElementById('gameUrl').value = g.url;
+            document.getElementById('gameFavicon').value = g.favicon;
+            openModal('gameModal');
+        }
+
+        function saveGame() {
+            const cIdx = parseInt(document.getElementById('gameCatIndex').value);
+            const gIdx = parseInt(document.getElementById('gameIndex').value);
+            const newGame = {
+                id: document.getElementById('gameId').value,
+                name: document.getElementById('gameName').value,
+                url: document.getElementById('gameUrl').value,
+                favicon: document.getElementById('gameFavicon').value
+            };
+            if(!appData.topics[cIdx].games) appData.topics[cIdx].games = [];
+            if(gIdx === -1) appData.topics[cIdx].games.push(newGame);
+            else appData.topics[cIdx].games[gIdx] = newGame;
+            closeModal('gameModal');
+            render();
+            showToast("Daily Saved");
+        }
+
+        function deleteGame(cIdx, gIdx) {
+            if(confirm("Delete daily?")) { appData.topics[cIdx].games.splice(gIdx, 1); render(); }
+        }
+
+        function openExportModal() {
+            document.getElementById('exportArea').value = JSON.stringify(appData, null, 2);
+            openModal('exportModal');
+        }
+
+        function copyToClipboard() {
+            const txt = document.getElementById('exportArea');
+            txt.select();
+            document.execCommand('copy');
+            showToast("Copied!");
+        }
+
         function downloadFile() {
-            const blob = new Blob([JSON.stringify(appData, null, 2)], {type: "application/json"});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = "dailys.json"; a.click();
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+            const dlNode = document.createElement('a');
+            dlNode.setAttribute("href", dataStr);
+            dlNode.setAttribute("download", "dailys.json");
+            dlNode.click();
         }
 
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function showToast(m) { const t = document.getElementById('toast'); document.getElementById('toastMsg').innerText = m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2000); }
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+        function escapeHtml(text) {
+            if (!text) return "";
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+        document.querySelectorAll('.modal-overlay').forEach(el => {
+            el.addEventListener('click', e => { if(e.target===el) closeModal(el.id); });
+        });
     </script>
 </body>
 </html>
