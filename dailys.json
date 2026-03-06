@@ -15,7 +15,7 @@
         {
           "id": "wordle-de",
           "name": "Wördle",
-          "url": "https://www.xn--wrdle-jua.de/",
+          "url": "https://www.wortsuchspiel.de",
           "favicon": "https://www.xn--wrdle-jua.de/assets/icon/favicon.ico"
         },
         {
@@ -37,12 +37,6 @@
           "favicon": "https://wafflegame.net/favicon.ico"
         },
         {
-          "id": "octordle",
-          "name": "Octordle",
-          "url": "https://www.britannica.com/games/octordle/extreme",
-          "favicon": "https://www.britannica.com/games/octordle/favicon.ico"
-        },
-        {
           "id": "duotrigordle",
           "name": "Duotrigordle",
           "url": "https://duotrigordle.com/",
@@ -57,10 +51,10 @@
       "description": "Geography and location-based dailys",
       "games": [
         {
-          "id": "geodle",
-          "name": "Geodle",
-          "url": "https://geodle.me/",
-          "favicon": "https://geodle.me/favicon.ico"
+          "id": "maptap",
+          "name": "MapTap",
+          "url": "https://maptap.gg/",
+          "favicon": "https://maptap.gg/android-chrome-192x192.png"
         },
         {
           "id": "worldle",
@@ -69,22 +63,10 @@
           "favicon": "https://worldle.teuteuf.fr/favicon.ico"
         },
         {
-          "id": "globle",
-          "name": "Globle",
-          "url": "https://globle-game.com/game",
-          "favicon": "https://globle-game.com/favicon.ico"
-        },
-        {
           "id": "travle",
           "name": "Travle",
           "url": "https://travle.earth/",
           "favicon": "https://travle.earth/icons/favicon.ico"
-        },
-        {
-          "id": "maptap",
-          "name": "MapTap",
-          "url": "https://maptap.gg/",
-          "favicon": "https://maptap.gg/android-chrome-192x192.png"
         },
         {
           "id": "timeguessr",
@@ -147,12 +129,6 @@
           "name": "GuessTheAngle",
           "url": "https://guesstheangle.wtf/",
           "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>📐</text></svg>"
-        },
-        {
-          "id": "chartle",
-          "name": "Chartle",
-          "url": "https://chartle.cc/",
-          "favicon": "https://chartle.cc/favicon.ico"
         },
         {
           "id": "estimateme",
@@ -229,6 +205,12 @@
           "name": "Chess Puzzle",
           "url": "https://www.chess.com/",
           "favicon": "https://www.chess.com/favicon.ico"
+        },
+        {
+          "id": "listudy",
+          "name": "Chess Tactic Daily",
+          "url": "https://listudy.org/en/tactics/daily-puzzle",
+          "favicon": "https://listudy.org/favicon-32x32.png"
         },
         {
           "id": "minigolfle",
