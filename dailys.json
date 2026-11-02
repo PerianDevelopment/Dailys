@@ -1,46 +1,78 @@
 {
   "topics": [
     {
-      "id": "word",
-      "name": "Word Themed",
-      "icon": "fas fa-font",
-      "description": "Word and vocabulary-based dailys",
+      "id": "playable",
+      "name": "Playable Dailys",
+      "icon": "fas fa-chess",
+      "description": "Daily games which can be played",
       "games": [
         {
-          "id": "wordle",
-          "name": "Wordle",
-          "url": "https://www.nytimes.com/games/wordle/index.html",
-          "favicon": "https://www.nytimes.com/games-assets/v2/metadata/wordle-safari-pinned-tab.svg"
+          "id": "krillion",
+          "name": "Krillion",
+          "url": "https://krillion.io/",
+          "favicon": "https://krillion.io/icon.png"
         },
         {
-          "id": "wordle-de",
-          "name": "Wördle",
-          "url": "https://www.wortsuchspiel.de",
-          "favicon": "https://www.xn--wrdle-jua.de/assets/icon/favicon.ico"
+          "id": "enclosehorse",
+          "name": "Enclose Horse",
+          "url": "https://enclose.horse/",
+          "favicon": "https://enclose.horse/favicon.ico"
         },
         {
-          "id": "lewdle",
-          "name": "Lewdle",
-          "url": "https://www.lewdlegame.com/App",
-          "favicon": "https://www.lewdlegame.com/favicon.ico"
+          "id": "chess",
+          "name": "Chess Puzzle",
+          "url": "https://www.chess.com/daily",
+          "favicon": "https://www.chess.com/favicon.ico"
         },
         {
-          "id": "wordgy",
-          "name": "Wordgy",
-          "url": "https://wordgy.com/",
-          "favicon": "https://wordgy.com/assets/favicon.8b6c5cf0.ico"
+          "id": "thewikigamedaily",
+          "name": "Wiki Game",
+          "url": "https://www.thewikigamedaily.com/",
+          "favicon": "https://www.thewikigamedaily.com/favicon.png"
+        }
+      ]
+    },
+    {
+      "id": "estimation",
+      "name": "Estimation Themed",
+      "icon": "fas fa-chart-line",
+      "description": "Estimation and number-based dailys",
+      "games": [
+        {
+          "id": "moreless",
+          "name": "Moreless",
+          "url": "https://lessgames.com/moreless",
+          "favicon": "https://lessgames.com/favicon.ico"
         },
         {
-          "id": "wafflegame",
-          "name": "Wafflegame",
-          "url": "https://wafflegame.net/daily",
-          "favicon": "https://wafflegame.net/favicon.ico"
+          "id": "magnitudle",
+          "name": "Magnitudle",
+          "url": "https://magnitudle.com/size-it-up",
+          "favicon": "https://magnitudle.com/icon-magnitude.svg"
         },
         {
-          "id": "duotrigordle",
-          "name": "Duotrigordle",
-          "url": "https://duotrigordle.com/",
-          "favicon": "https://duotrigordle.com/favicon.ico"
+          "id": "coindle",
+          "name": "Coindle",
+          "url": "https://coindle.muhashi.com/",
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>💰</text></svg>"
+        },
+        {
+          "id": "guesstheangle",
+          "name": "GuessTheAngle",
+          "url": "https://guesstheangle.wtf/",
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>📐</text></svg>"
+        },
+        {
+          "id": "estimateme",
+          "name": "EstimateMe",
+          "url": "https://estimate-me.aukspot.com/",
+          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🤷</text></svg>"
+        },
+        {
+          "id": "brickdle",
+          "name": "Brickdle",
+          "url": "https://www.brickdle.com/",
+          "favicon": "https://www.brickdle.com/favicon.svg"
         }
       ]
     },
@@ -95,58 +127,54 @@
       ]
     },
     {
-      "id": "estimation",
-      "name": "Estimation Themed",
-      "icon": "fas fa-chart-line",
-      "description": "Estimation and number-based dailys",
+      "id": "word",
+      "name": "Word Themed",
+      "icon": "fas fa-font",
+      "description": "Word and vocabulary-based dailys",
       "games": [
         {
-          "id": "coindle",
-          "name": "Coindle",
-          "url": "https://coindle.muhashi.com/",
-          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>💰</text></svg>"
+          "id": "wordle",
+          "name": "Wordle",
+          "url": "https://www.nytimes.com/games/wordle/index.html",
+          "favicon": "https://www.nytimes.com/games-assets/v2/metadata/wordle-safari-pinned-tab.svg"
         },
         {
-          "id": "moreless",
-          "name": "Moreless",
-          "url": "https://lessgames.com/moreless",
+          "id": "wordle-de",
+          "name": "WortSuchSpiel",
+          "url": "https://www.wortsuchspiel.de",
+          "favicon": "https://www.xn--wrdle-jua.de/assets/icon/favicon.ico"
+        },
+        {
+          "id": "lewdle",
+          "name": "Lewdle",
+          "url": "https://www.lewdlegame.com/App",
+          "favicon": "https://www.lewdlegame.com/favicon.ico"
+        },
+        {
+          "id": "wordgy",
+          "name": "Wordgy",
+          "url": "https://wordgy.com/",
+          "favicon": "https://wordgy.com/favicon.ico"
+        },
+        {
+          "id": "wafflegame",
+          "name": "Wafflegame",
+          "url": "https://wafflegame.net/daily",
+          "favicon": "https://wafflegame.net/favicon.ico"
+        }
+      ]
+    },
+    {
+      "id": "music",
+      "name": "Music Themed",
+      "icon": "fas fa-music",
+      "description": "Music and audio-based dailys",
+      "games": [
+        {
+          "id": "songless",
+          "name": "Songless",
+          "url": "https://lessgames.com/songless",
           "favicon": "https://lessgames.com/favicon.ico"
-        },
-        {
-          "id": "brickdle",
-          "name": "Brickdle",
-          "url": "https://www.brickdle.com/",
-          "favicon": "https://www.brickdle.com/favicon.svg"
-        },
-        {
-          "id": "guessthehouse",
-          "name": "GuessTheHouse",
-          "url": "https://guessthe.house/",
-          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🏠</text></svg>"
-        },
-        {
-          "id": "guesstheangle",
-          "name": "GuessTheAngle",
-          "url": "https://guesstheangle.wtf/",
-          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>📐</text></svg>"
-        },
-        {
-          "id": "estimateme",
-          "name": "EstimateMe",
-          "url": "https://estimate-me.aukspot.com/",
-          "favicon": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221.1em%22 font-size=%2280%22>🤷</text></svg>"
-        },
-        {
-          "id": "cropple",
-          "name": "Cropple",
-          "url": "https://cropple.app/",
-          "favicon": "https://cropple.app/assets/favicon.ico"
-        },
-        {
-          "id": "r34dle",
-          "name": "Rule34dle",
-          "url": "https://r34dle.com/game/daily/",
-          "favicon": "https://www.rule34dle.org/logo.svg"
         }
       ]
     },
@@ -169,66 +197,10 @@
           "favicon": "https://minecraftle.zachmanson.com/icons/favicon-32x32.png"
         },
         {
-          "id": "loldle",
-          "name": "Loldle",
-          "url": "https://loldle.net/",
-          "favicon": "https://loldle.net/favicon.ico"
-        },
-        {
-          "id": "royaledle",
-          "name": "Royaledle",
-          "url": "https://royaledle.com/",
-          "favicon": "https://royaledle.com/favicon.ico"
-        },
-        {
-          "id": "pokedle",
-          "name": "Pokédle",
-          "url": "https://pokedle.net/",
-          "favicon": "https://pokedle.net/favicon.ico"
-        },
-        {
           "id": "steamdle",
           "name": "Steamdle",
           "url": "https://steamdle.com/",
           "favicon": "https://steamdle.com/favicon.ico"
-        }
-      ]
-    },
-    {
-      "id": "playable",
-      "name": "Playable Dailys",
-      "icon": "fas fa-chess",
-      "description": "Daily games which can be played",
-      "games": [
-        {
-          "id": "chess",
-          "name": "Chess Puzzle",
-          "url": "https://www.chess.com/daily",
-          "favicon": "https://www.chess.com/favicon.ico"
-        },
-        {
-          "id": "listudy",
-          "name": "Chess Tactic Daily",
-          "url": "https://listudy.org/en/tactics/daily-puzzle",
-          "favicon": "https://listudy.org/favicon-32x32.png"
-        },
-        {
-          "id": "minigolfle",
-          "name": "Minigolfle",
-          "url": "https://minigolfle.com/",
-          "favicon": "https://minigolfle.com/m.svg"
-        },
-        {
-          "id": "rogule",
-          "name": "Rogule",
-          "url": "https://rogule.com/",
-          "favicon": "https://rogule.com/icon.png"
-        },
-        {
-          "id": "thewikigamedaily",
-          "name": "Wiki Game",
-          "url": "https://www.thewikigamedaily.com/",
-          "favicon": "https://www.thewikigamedaily.com/favicon.png"
         }
       ]
     },
@@ -249,20 +221,6 @@
           "name": "Foodguessr PlateOff",
           "url": "https://www.foodguessr.com/",
           "favicon": "https://www.foodguessr.com/favicon.ico"
-        }
-      ]
-    },
-    {
-      "id": "music",
-      "name": "Music Themed",
-      "icon": "fas fa-music",
-      "description": "Music and audio-based dailys",
-      "games": [
-        {
-          "id": "songless",
-          "name": "Songless",
-          "url": "https://lessgames.com/songless",
-          "favicon": "https://lessgames.com/favicon.ico"
         }
       ]
     },
