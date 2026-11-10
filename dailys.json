@@ -1,5 +1,11 @@
 {
   "topics": [
+    {
+      "id": "playable",
+      "name": "Playable Dailys",
+      "icon": "fas fa-chess",
+      "description": "Daily games which can be played",
+      "games": [
         {
           "id": "krillion",
           "name": "Krillion",
