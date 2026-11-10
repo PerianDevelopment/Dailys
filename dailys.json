@@ -1,11 +1,5 @@
 {
   "topics": [
-    {
-      "id": "playable",
-      "name": "Playable Dailys",
-      "icon": "fas fa-chess",
-      "description": "Daily games which can be played",
-      "games": [
         {
           "id": "krillion",
           "name": "Krillion",
@@ -13,16 +7,22 @@
           "favicon": "https://krillion.io/icon.png"
         },
         {
-          "id": "enclosehorse",
-          "name": "Enclose Horse",
-          "url": "https://enclose.horse/",
-          "favicon": "https://enclose.horse/favicon.ico"
+          "id": "noillirk",
+          "name": "Noillirk",
+          "url": "https://noillirk.com/",
+          "favicon": "https://noillirk.com/favicon.ico"
         },
         {
           "id": "chess",
           "name": "Chess Puzzle",
           "url": "https://www.chess.com/daily",
           "favicon": "https://www.chess.com/favicon.ico"
+        },
+        {
+          "id": "enclosehorse",
+          "name": "Enclose Horse",
+          "url": "https://enclose.horse/",
+          "favicon": "https://enclose.horse/favicon.ico"
         },
         {
           "id": "thewikigamedaily",
